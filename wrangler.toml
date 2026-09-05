@@ -4,7 +4,7 @@ compatibility_date = "2026-09-05"
 # 单文件静态站：把 index.html 作为静态资源发布
 [assets]
 directory = "./"
-binding = "ASSETS"
+
 
 # 开发/预览用本地服务（可选）
 [dev]
