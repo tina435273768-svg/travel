@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2b3a5c">
+<title>意奥德 16 日 · 旅行手册</title>
+<style>
+  :root{
+    --bg:#eef1f6;
+    --bg-grad:linear-gradient(170deg,#f4f6fb 0%,#e8ecf4 45%,#dde4ef 100%);
+    --card:#ffffff;
+    --card-2:#f7f9fd;
+    --ink:#1f2733;
+    --ink-soft:#5b6675;
+    --ink-faint:#8a94a5;
+    --line:#e3e8f0;
+    --brand:#2b3a5c;
+    --brand-2:#4a6db5;
+    --accent:#e67e22;
+    --accent-2:#c0392b;
+    --gold:#d4a017;
+    --pos:#2c8a4b;
+    --warn:#b8860b;
+    --shadow:0 8px 28px rgba(45,64,110,.10);
+    --shadow-sm:0 3px 12px rgba(45,64,110,.08);
+    --head-bg:linear-gradient(135deg,#2b3a5c 0%,#3f5a8c 55%,#4a6db5 100%);
+    --chip:#eef3fb;
+  }
+  html[data-theme="night"]{
+    --bg:#0e1420;
+    --bg-grad:radial-gradient(120% 90% at 50% 0%,#172033 0%,#0e1420 60%,#0a0f17 100%);
+    --card:#182235;
+    --card-2:#1f2b42;
+    --ink:#e8edf6;
+    --ink-soft:#a7b3c7;
+    --ink-faint:#75839c;
+    --line:#2a3850;
+    --brand:#8fb0e6;
+    --brand-2:#6f9be0;
+    --accent:#f29a4b;
+    --accent-2:#ef7d6b;
+    --gold:#e0b74f;
+    --pos:#5fbf85;
+    --warn:#e0b74f;
+    --shadow:0 8px 28px rgba(0,0,0,.35);
+    --shadow-sm:0 3px 12px rgba(0,0,0,.3);
+    --head-bg:linear-gradient(135deg,#0f1830 0%,#1a2a4d 55%,#2b4a86 100%);
+    --chip:#223050;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    background-image:var(--bg-grad);
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.62;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:16px 16px 100px}
+  a{color:var(--brand-2);text-decoration:none}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    box-shadow:var(--shadow-sm);
+    margin:14px 0;
+    overflow:hidden;
+  }
+  .card-head{
+    padding:16px 18px 6px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .card-head h2{
+    margin:0;font-size:1.05rem;letter-spacing:.5px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .card-head .badge{
+    font-size:.68rem;font-weight:600;color:var(--brand-2);
+    background:var(--chip);padding:3px 9px;border-radius:30px;letter-spacing:.5px;
+  }
+  .card-body{padding:4px 18px 20px}
+
+  /* toggle */
+  .theme-btn{position:fixed;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;
+    background:rgba(255,255,255,.9);border:1px solid var(--line);cursor:pointer;
+    font-size:19px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm);
+    color:var(--ink);transition:.2s;}
+  html[data-theme="night"] .theme-btn{background:rgba(30,42,66,.9);color:#fff}
+  .theme-btn:hover{transform:rotate(15deg)}
+
+  /* HERO */
+  .hero{
+    background:var(--head-bg); color:#fff;
+    border-radius:20px; padding:26px 22px 24px;margin:14px 0 4px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .hero:before{content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(420px 190px at 88% -20%,rgba(255,255,255,.20),transparent 60%),
+      radial-gradient(300px 160px at -10% 120%,rgba(255,255,255,.12),transparent 60%);}
+  .hero .kicker{font-size:.72rem;letter-spacing:3px;opacity:.75;font-weight:600}
+  .hero .title{font-size:1.55rem;font-weight:800;margin:6px 0 2px;letter-spacing:1px}
+  .hero .sub{font-size:.85rem;opacity:.82;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px}
+  .hero .sub .dot{opacity:.5}
+  .hero .meta{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
+  .hero .pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    padding:5px 12px;border-radius:30px;font-size:.74rem}
+  .hero .hint{margin-top:14px;font-size:.72rem;opacity:.7;line-height:1.6}
+
+  /* countdown card */
+  .focus{background:var(--head-bg);color:#fff;border-radius:20px;padding:20px 20px 22px;margin:14px 0;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .focus:before{content:"";position:absolute;inset:0;
+    background:radial-gradient(360px 150px at 90% -10%,rgba(255,255,255,.18),transparent 60%),
+               radial-gradient(260px 140px at 0% 120%,rgba(255,255,255,.10),transparent 60%);}
+  .focus .flabel{display:flex;align-items:center;gap:7px;font-size:.74rem;letter-spacing:2px;opacity:.85;font-weight:700;text-transform:uppercase}
+  .focus .fevt{font-size:1.12rem;font-weight:700;margin:10px 0 2px}
+  .focus .ftz{font-size:.74rem;opacity:.8}
+  .timer{display:flex;gap:12px;margin-top:16px}
+  .timer .cell{flex:1;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.20);
+    border-radius:14px;padding:12px 6px;text-align:center}
+  .timer .num{font-size:2rem;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums;letter-spacing:1px}
+  .timer .lbl{font-size:.64rem;letter-spacing:2px;opacity:.72;margin-top:5px}
+  .focus .next-note{margin-top:14px;font-size:.76rem;opacity:.75}
+  @media(max-width:520px){.timer{gap:8px}.timer .cell{padding:10px 4px}.timer .num{font-size:1.5rem}}
+
+  /* section label */
+  .sec-tag{display:flex;align-items:center;gap:8px;margin:28px 2px 2px;font-size:.74rem;font-weight:700;color:var(--ink-faint);letter-spacing:3px;text-transform:uppercase}
+  .sec-tag:before{content:"";width:22px;height:2px;background:var(--accent);border-radius:2px}
+
+  /* overview map */
+  .map-wrap{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 10px 6px;box-shadow:var(--shadow-sm)}
+  .map-wrap svg{width:100%;height:auto;display:block}
+  .map-legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 14px 16px;font-size:.72rem;color:var(--ink-soft)}
+  .map-legend span{display:flex;align-items:center;gap:6px}
+  .map-legend i{width:20px;height:6px;border-radius:3px;display:inline-block}
+
+  /* bookings */
+  .bk{display:flex;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .bk:last-child{border-bottom:none}
+  .bk .icon{flex:none;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+  .bk .b-ico-air{background:#fff2e6;color:#e67e22}
+  .bk .b-ico-car{background:#e8f5ec;color:#2c8a4b}
+  .bk .b-ico-hotel{background:#eaf0ff;color:#4a6db5}
+  .bk .b-ico-ticket{background:#f3ecff;color:#8e5bd0}
+  .bk .b-ico-train{background:#e8f0fb;color:#0e6aa8}
+  html[data-theme="night"] .bk .b-ico-air{background:#4a3a26;color:#f2b06b}
+  html[data-theme="night"] .bk .b-ico-car{background:#1f3c2c;color:#6fcf98}
+  html[data-theme="night"] .bk .b-ico-hotel{background:#25324e;color:#9fb9ef}
+  html[data-theme="night"] .bk .b-ico-ticket{background:#3a2e55;color:#c1a4f2}
+  html[data-theme="night"] .bk .b-ico-train{background:#1d3149;color:#8fc4ef}
+  .bk .info{min-width:0;flex:1}
+  .bk .t1{font-weight:700;font-size:.95rem}
+  .bk .t2{font-size:.78rem;color:var(--ink-soft);margin-top:3px;line-height:1.55}
+  .bk .t2 .lbl{color:var(--ink-faint)}
+  .bk .chiprow{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+  .bk .mchip{font-size:.7rem;background:var(--chip);color:var(--ink);padding:3px 9px;border-radius:25px;border:1px solid var(--line)}
+  .bk .mchip.linky{color:var(--brand-2);border-color:var(--brand-2)}
+  .bk .caution{font-size:.73rem;color:var(--warn);margin-top:8px;line-height:1.5;display:flex;gap:6px}
+  .ph-link{font-weight:600}
+
+  /* day itinerary */
+  .day{border:1px solid var(--line);border-radius:16px;margin:12px 0;overflow:hidden;background:var(--card)}
+  .day-hd{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none}
+  .day-hd:active{opacity:.7}
+  .day-num{flex:none;width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,var(--brand-2),var(--brand));color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;box-shadow:var(--shadow-sm)}
+  .day-num b{font-size:1.15rem;line-height:1}
+  .day-num span{font-size:.58rem;opacity:.85;margin-top:1px}
+  .day-num .ddow{font-size:.6rem;opacity:.9}
+  .day-mid{flex:1;min-width:0}
+  .day-mid .dtitle{font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .day-mid .dsub{font-size:.76rem;color:var(--ink-soft);margin-top:2px}
+  .day-arrow{flex:none;color:var(--ink-faint);transition:transform .25s}
+  .day.open .day-arrow{transform:rotate(180deg)}
+  .day-open{display:none;padding:2px 14px 16px;border-top:1px dashed var(--line)}
+  .day.open .day-open{display:block}
+  .day-open .nav-top{display:flex;gap:8px;flex-wrap:wrap;margin:10px 2px 12px}
+  .btn{display:inline-flex;align-items:center;gap:6px;background:var(--chip);color:var(--ink);
+    border:1px solid var(--line);padding:7px 13px;border-radius:30px;font-size:.78rem;font-weight:600;cursor:pointer;transition:.15s}
+  .btn:hover{border-color:var(--brand-2);color:var(--brand-2)}
+  .btn.primary{background:var(--brand-2);color:#fff;border-color:var(--brand-2)}
+  .btn.primary:hover{filter:brightness(1.05)}
+  .day-open .route{background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:10px 8px;margin-bottom:14px}
+  .day-open .route svg{width:100%;height:auto;display:block}
+
+  .stop{display:flex;gap:12px;padding:11px 6px;border-bottom:1px solid var(--line)}
+  .stop:last-child{border-bottom:none}
+  .stop .tl{flex:none;width:74px;text-align:right;font-variant-numeric:tabular-nums}
+  .stop .tl .tt{font-weight:800;font-size:.92rem;line-height:1.2}
+  .stop .tl .tz{font-size:.6rem;color:var(--ink-faint);margin-top:2px}
+  .stop .bd{flex:1;min-width:0;position:relative;padding-left:16px}
+  .stop .bd:before{content:"";position:absolute;left:0;top:5px;width:8px;height:8px;border-radius:50%;background:var(--brand-2)}
+  .stop .bd.big:before{background:var(--accent);width:11px;height:11px;left:-2px;top:3px;box-shadow:0 0 0 4px rgba(230,126,34,.16)}
+  .stop .bd .st{font-weight:700;font-size:.9rem}
+  .stop .bd .sd{font-size:.79rem;color:var(--ink-soft);margin-top:3px;line-height:1.55}
+  .stop .bd .sd .hl{color:var(--ink);font-weight:600}
+  .mk{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:700;
+    padding:2px 8px;border-radius:20px;margin-top:6px}
+  .mk.book{color:#c0392b;background:#fdeceb;border:1px solid #f3ccc8}
+  .mk.warn{color:#b8860b;background:#fdf3dd;border:1px solid #f0e0b0}
+  .mk.ok{color:#2c8a4b;background:#e8f5ec;border:1px solid #c5e6d2}
+  .mk.free{color:#4a6db5;background:#eaf0ff;border:1px solid #d3e0ff}
+  html[data-theme="night"] .mk.book{color:#f2a49a;background:#4a2926;border-color:#5e3a35}
+  html[data-theme="night"] .mk.warn{color:#f0cf8f;background:#3f3420;border-color:#5a4a2c}
+  html[data-theme="night"] .mk.ok{color:#8fddb0;background:#1f3c2c;border-color:#2c523c}
+  html[data-theme="night"] .mk.free{color:#b7cdf7;background:#25324e;border-color:#37476b}
+  .stop .maps-a{font-size:.72rem;display:inline-flex;align-items:center;gap:4px;margin-top:8px;color:var(--brand-2);font-weight:600;cursor:pointer}
+  .stop .maps-a:hover{text-decoration:underline}
+
+  /* todos */
+  .todo li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line);font-size:.88rem}
+  .todo li:last-child{border-bottom:none}
+  .todo li .n{flex:none;width:22px;height:22px;border-radius:6px;background:var(--chip);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--ink-faint);margin-top:1px}
+  .todo li.urgent .n{background:#fff2e6;color:var(--accent);border-color:#f0dcc2}
+  .todo li .t{flex:1}
+  .todo li .t .tag{font-size:.66rem;color:var(--accent-2);font-weight:700;margin-left:6px}
+  .todo li .desc{display:block;font-size:.74rem;color:var(--ink-soft);margin-top:2px}
+
+  /* tips */
+  .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;padding:6px 2px 4px}
+  .tip{background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .tip .icon{font-size:20px}
+  .tip .tt{font-weight:700;font-size:.88rem;margin:8px 0 5px}
+  .tip .td{font-size:.78rem;color:var(--ink-soft);line-height:1.6}
+
+  .note-flag{font-size:.8rem;color:var(--warn);background:var(--chip);border:1px solid var(--line);
+    border-radius:10px;padding:10px 12px;margin:14px 0 4px;line-height:1.6}
+  .footer{text-align:center;font-size:.72rem;color:var(--ink-faint);margin-top:40px;line-height:1.8}
+
+  .nowmark{position:relative}
+  .nowbar{background:linear-gradient(90deg,var(--brand-2),var(--brand));color:#fff;font-size:.7rem;font-weight:700;
+    padding:6px 18px;border-radius:10px;margin:16px 2px 2px;display:inline-flex;align-items:center;gap:8px;box-shadow:var(--shadow-sm)}
+
+  /* 底部固定导航 */
+  .bnav{position:fixed;left:0;right:0;bottom:0;z-index:80;display:flex;
+    background:rgba(255,255,255,.93);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-top:1px solid var(--line);padding:7px 8px calc(7px + env(safe-area-inset-bottom));
+    justify-content:space-around;box-shadow:0 -5px 20px rgba(0,0,0,.06)}
+  html[data-theme="night"] .bnav{background:rgba(16,22,36,.95);border-top-color:#243350;box-shadow:0 -5px 20px rgba(0,0,0,.4)}
+  .bnav a{flex:1;max-width:130px;text-align:center;font-size:.72rem;font-weight:600;color:var(--ink-soft);
+    display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 2px;border-radius:12px;
+    text-decoration:none;transition:.15s}
+  .bnav a .ic{font-size:19px;line-height:1}
+  .bnav a.active{color:var(--brand-2);background:var(--chip)}
+  html[data-theme="night"] .bnav a.active{background:var(--chip);color:#a9c4f5}
+</style>
+</head>
+<body>
+<button class="theme-btn" id="themeBtn" title="切换昼夜配色" aria-label="切换昼夜配色">🌙</button>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="kicker">EUROPE · 意 / 奥 / 德 16 日</div>
+    <div class="title">意奥德旅行手册</div>
+    <div class="sub">
+      <span>🎉 2 人同行</span><span class="dot">·</span>
+      <span>🗓️ 9/22 – 10/9</span><span class="dot">·</span>
+      <span>🇮🇹 意大利</span><span class="dot">→</span><span>🇦🇹 奥地利</span><span class="dot">→</span><span>🇩🇪 德国</span>
+    </div>
+    <div class="meta">
+      <span class="pill">✈️ 上海出发</span>
+      <span class="pill">🚗 两段租车</span>
+      <span class="pill">🚄 火车接驳</span>
+      <span class="pill">🏔️ 多洛米蒂自驾</span>
+      <span class="pill">🏰 城堡 & 湖区</span>
+    </div>
+    <div class="hint">以下时间均为当地时刻；每次打开页面自动按你的时区计算倒计时，跨时区不会错。</div>
+  </div>
+
+  <!-- countdown -->
+  <section class="focus" id="focus">
+    <div class="flabel">⏳ 此刻关注 · 下一个行程节点</div>
+    <div class="fevt" id="focusEvt">—</div>
+    <div class="ftz" id="focusTz">—</div>
+    <div class="timer">
+      <div class="cell"><div class="num" id="d">00</div><div class="lbl">天</div></div>
+      <div class="cell"><div class="num" id="h">00</div><div class="lbl">时</div></div>
+      <div class="cell"><div class="num" id="m">00</div><div class="lbl">分</div></div>
+      <div class="cell"><div class="num" id="s">00</div><div class="lbl">秒</div></div>
+    </div>
+    <div class="next-note" id="focusNext">—</div>
+  </section>
+
+  <!-- OVERVIEW MAP -->
+  <div class="sec-tag" id="nav-overview">行程总览地图</div>
+  <div class="map-wrap">
+    <svg viewBox="0 0 900 640" id="ovMap" role="img" aria-label="行程总览地图"></svg>
+    <div class="map-legend" id="mapLegend"></div>
+  </div>
+
+  <!-- BOOKINGS -->
+  <div class="sec-tag" id="nav-booking">已确认 · 交通 / 住宿</div>
+  <div class="card" id="bkFlights"></div>
+  <div class="card" id="bkCars"></div>
+  <div class="card" id="bkTrains"></div>
+  <div class="card" id="bkHotels"></div>
+  <div id="bkTickets"></div>
+
+  <!-- DAYS -->
+  <div class="sec-tag" id="nav-days">逐日行程（点任意一天展开路线地图）</div>
+  <div id="days"></div>
+
+  <!-- TODO -->
+  <div class="sec-tag" id="nav-todo">待办清单</div>
+  <div class="card">
+    <div class="card-head"><h2>📋 出发前待办 <span class="badge" id="todoCount"></span></h2></div>
+    <div class="card-body"><ul class="todo" id="todoList"></ul></div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="sec-tag" id="nav-tips">实用贴士</div>
+  <div class="card">
+    <div class="card-head"><h2>💡 实用贴士</h2></div>
+    <div class="card-body"><div class="tips" id="tips"></div></div>
+  </div>
+
+  <div class="footer">
+    意 · 奥 · 德 16 日私人行程手册 · 单文件 · 可离线查看<br>
+    颜色随白天/黑夜自动切换，也可右上角手动切换
+  </div>
+</div>
+
+<!-- 底部固定导航 -->
+<nav class="bnav" id="bnav" aria-label="页面导航">
+  <a href="#nav-overview" data-sec="nav-overview"><span class="ic">🗺️</span>总览</a>
+  <a href="#nav-booking" data-sec="nav-booking"><span class="ic">📦</span>订单</a>
+  <a href="#nav-days" data-sec="nav-days"><span class="ic">📅</span>日程</a>
+  <a href="#nav-todo" data-sec="nav-todo"><span class="ic">📋</span>待办</a>
+  <a href="#nav-tips" data-sec="nav-tips"><span class="ic">💡</span>tips</a>
+</nav>
+
+<script>
+/* ================= 时区工具 ================= */
+function tzLabel(iso){ /* iso has offset, produce human tz name */
+  const off = new Date(iso).getTimezoneOffset();
+  const e = iso.match(/([+-])(\d{2}):(\d{2})$/);
+  if(e){const s=(+e[2])+':'+e[3];return 'UTC'+e[1]+s;}
+  return '当地';
+}
+function nowOf(iso){ return new Date(iso); }
+function pad2(n){return String(n).padStart(2,'0');}
+
+/* ================= 焦点事件（含时区偏移，绝对时刻） ================= */
+const focusEvents = [
+  { label:"🛫 上海浦东 T2 起飞 · 国航 CA8332 → 北京", iso:"2026-09-22T09:30:00+08:00" },
+  { label:"🛬 落地威尼斯马可波罗机场 · 国航 CA973", iso:"2026-09-22T19:15:00+02:00" },
+  { label:"🚄 威尼斯 → 佛罗伦萨 · 火车 16:05", iso:"2026-09-23T16:05:00+02:00" },
+  { label:"🚗 佛罗伦萨取车 · Budget 门店", iso:"2026-09-25T09:00:00+02:00" },
+  { label:"🚄 维罗纳 → 博尔扎诺 · 火车 08:49", iso:"2026-09-28T08:49:00+02:00" },
+  { label:"🚗 博尔扎诺取车 · Budget 门店", iso:"2026-09-28T10:00:00+02:00" },
+  { label:"🚄 博尔扎诺 → 萨尔茨堡 · RJ 86 出发", iso:"2026-10-01T12:34:00+02:00" },
+  { label:"🚄 萨尔茨堡 → 柏林 · ICE 210 出发", iso:"2026-10-04T10:00:00+02:00" },
+  { label:"🛫 柏林 → 伊斯坦布尔 · 土航 TK1726", iso:"2026-10-07T15:15:00+02:00" },
+  { label:"🛫 伊斯坦布尔 → 上海 · 土航 TK280", iso:"2026-10-08T15:10:00+03:00" },
+  { label:"🛬 落地上海浦东 · 土耳其航空", iso:"2026-10-09T06:25:00+08:00" }
+];
+
+/* ================= 协助渲染 ================= */
+const DAYCOLORS = [
+  "#e67e22","#4a6db5","#8e5bd0","#d4a017","#2c8a4b","#c0392b",
+  "#0e8a8a","#b0578d","#5a8f29","#3b6ea5","#a02b59","#6a5acd",
+  "#2c8a8f","#c07a2a","#4a7ab5","#d15a3a"
+];
+function gmapsSearch(q){ return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q); }
+function gmapsDir(origin,dest,ways,mode){
+  const base="https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent(origin)+
+    "&destination="+encodeURIComponent(dest);
+  const w = ways && ways.length ? "&waypoints="+encodeURIComponent(ways.join("|")) : "";
+  return base + w + "&travelmode="+(mode||"driving");
+}
+function openGmaps(url){ window.open(url,"_blank"); }
+function el(html){const t=document.createElement('template');t.innerHTML=html.trim();return t.content.firstChild;}
+function ph(text){ return "<a class='ph-link' href='tel:"+text.replace(/[^+\d]/g,'')+"'>"+text+"</a>"; }
+
+/* ================= 航班 ================= */
+const flights = [
+  {
+    icon:"✈️", cls:"b-ico-air", tag:"国际 · 上海→威尼斯（中转北京）",
+    t1:"9/22 上海浦东 PVG T2 → 北京首都 PEK T3 → 威尼斯 VCE",
+    t2:["航班一：国航 <b>CA8332</b> · 空客321 · 09:30→11:40 点心餐，中转北京 2h35m 行李直达",
+        "航班二：国航 <b>CA973</b> · 空客330 · 14:15→19:15（当地时间）· 有餐食 / 托运1×23kg / 手提1×5kg"],
+    chips:["09:30 上海起飞","19:15 威尼斯落地（当地）","经济舱(T)"],
+    caution:"⚠️ 此票显示「已变更」——请按变更后信息为准；出发前再核对一遍航站楼与行李额。"
+  },
+  {
+    icon:"✈️", cls:"b-ico-air", tag:"国际 · 柏林→上海（中转伊斯坦布尔）",
+    t1:"10/7 柏林 BER T1 → 伊斯坦布尔 IST → 10/9 上海浦东 PVG",
+    t2:["航班一：土耳其航空 <b>TK1726</b> · 中型机321 · 10/7 15:15→19:15（当地）· 有餐食",
+        "航班二：土耳其航空 <b>TK280</b> · 大787 · 10/8 15:10→10/9 06:25 · 有餐食",
+        "中转 19h55m · 跨天中转 · 行李直达 · 无需过境签"],
+    chips:["¥4289 / 人","10/7 15:15 柏林起飞","10/9 06:25 上海落地（当地）"],
+    caution:"⚠️ 19h55m 中转：土航 Stopover 免费酒店通常要求 ≥20 小时，你差 5 分钟，多半不符；但 <b>TourIstanbul 免费半日游</b>（6-24h）符合，须提前在土航官网登记。"
+  }
+];
+
+/* ================= 租车 ================= */
+const cars = [
+  {
+    icon:"🚗", cls:"b-ico-car", tag:"租车一 · 托斯卡纳段（已订）",
+    t1:"9/25 佛罗伦萨取车 → 9/27 佛罗伦萨还车",
+    t2:["取车：<b>Budget Autonoleggio – Firenze</b> · Via Maso Finiguerra, 13r, 50123 Firenze FI",
+        "还车：Via Maso Finiguerra, 15（门店旁边）",
+        "电话："+ph("+39 055 238 2697")+" / "+ph("+39 342 066 9540")],
+    chips:["自驾：锡耶纳 / 皮恩扎","取还车同城","附近有油站"],
+    caution:"⚠️ 意大利租车需带<b>国际驾照（海牙认证，预估 ¥600）</b>+ 主驾护照 + 押金信用卡；还车前记得加满油。"
+  },
+  {
+    icon:"🚗", cls:"b-ico-car", tag:"租车二 · 多洛米蒂段（已订）",
+    t1:"9/28 博尔扎诺取车 → 10/1 博尔扎诺还车",
+    t2:["取车 / 还车：<b>Budget</b> · Via Luigi Galvani, 1F, 39100 Bolzano BZ",
+        "电话：+"+ph("0471 212 560")],
+    chips:["自驾：富内斯 / 布拉耶斯 / 刀锋山","取还车同地","步行 15 分钟到火车站"],
+    caution:"⚠️ 多洛米蒂山路多，留意弯道会车；导航空调选「谷口停车场」再步行/公交进山谷，更省心。"
+  }
+];
+
+/* ================= 火车（已出票） ================= */
+const trains = [
+  {
+    icon:"🚄", cls:"b-ico-train", tag:"城际 · 博尔扎诺 → 萨尔茨堡（10/1 已出票）",
+    t1:"12:34 Bolzano/Bozen → 17:02 Salzburg Hbf",
+    t2:["第一程：<b>RJ 86</b> · 12:34 博尔扎诺 → 14:32 因斯布鲁克 Hbf (Pl. 6) · 车厢 265 · 座位 102,101 · 1h58m",
+        "因斯布鲁克站内换乘 24 分钟",
+        "第二程：<b>RJX 13479</b> · 14:56 因斯布鲁克 → 17:02 萨尔茨堡 Hbf (Pl. 4C-F) · 车厢 34 · 座位 64,66 · 2h6m"],
+    chips:["2. Klasse · Super Offerta","2 人同行","总耗时 4h28m"],
+    caution:"已出票，座位固定可直接对号入座；乘车前核对站台与车厢。"
+  },
+  {
+    icon:"🚄", cls:"b-ico-train", tag:"城际 · 萨尔茨堡 → 柏林（10/4 已出票）",
+    t1:"10:00 Salzburg Hbf → 16:24 Berlin Hbf",
+    t2:["第一程：<b>ICE 210</b> · 10:00 萨尔茨堡 → 11:42 慕尼黑 Hbf (Pl. 13) · 车厢 22 · 座位 68,67 · 1h42m · Komfort Check-in",
+        "慕尼黑站内换乘 39 分钟 · ICE Sprinter",
+        "第二程：<b>ICE 1508</b> · 12:21 慕尼黑 → 16:24 柏林 Hbf (Pl. 5) · 车厢 31 · 座位 61,63 · 4h3m"],
+    chips:["2. Klasse · Super Sparpreis","2 人同行","总耗时 6h24m"],
+    caution:"⚠️ 跨国段过境注意证件；慕尼黑换乘 39 分钟，留意站台指引。"
+  }
+];
+
+/* ================= 酒店 ================= */
+const hotels = [
+  {
+    date:"9/22 – 9/23", icon:"🏨", cls:"b-ico-hotel", name:"a&o Venezia Mestre", tag:"威尼斯 · Mestre 火车站旁",
+    addr:"Via Ca' Marcello 19, Venezia, Veneto 30172, Italy",
+    phone:"+39 041 884 0990",
+    note:"机场大巴 ≈30min / 12€；步行可达 Mestre 火车站，方便取行李、坐车上主岛。"
+  },
+  {
+    date:"9/23 – 9/25", icon:"🏠", cls:"b-ico-hotel", name:"Airbnb · 佛罗伦萨", tag:"圣母玛丽亚火车站附近 (SMN)",
+    addr:"Via degli Orti Oricellari 31, Firenze, Toscana 50123, Italy",
+    phone:"见民宿订单",
+    note:"紧邻新圣母玛利亚火车站，取车/还车都在旁边；第一天寄存行李方便。"
+  },
+  {
+    date:"9/25 – 9/27", icon:"🌾", cls:"b-ico-hotel", name:"Agriturismo La Casa Nuova", tag:"托斯卡纳乡间", 
+    addr:"Strada Provinciale 71 loc Castelmuzio, 53020 Castelmuzio, Siena",
+    phone:"见订单 (Booking)",
+    note:"锡耶纳 / 皮恩扎中间，适合乡村慢游；自驾 1h 到锡耶纳。"
+  },
+  {
+    date:"9/27 – 9/28", icon:"🏨", cls:"b-ico-hotel", name:"Casa Italia", tag:"维罗纳火车站边",
+    addr:"Piazza Renato Simoni 14, Verona 37122, Italy",
+    phone:"见订单 (Booking)",
+    note:"楼下就是 Verona Porta Nuova 火车站，次日 08:49 去博尔扎诺超方便。"
+  },
+  {
+    date:"9/28 – 10/1", icon:"🏠", cls:"b-ico-hotel", name:"Airbnb · Brixen 山上", tag:"Brixen（多洛米蒂）",
+    addr:"Gebreitnerhof, Karnol 88, Brixen, Trentino-Alto Adige 39042",
+    phone:"见 Airbnb 订单",
+    note:"住在山上，俯瞰富内斯山谷；自驾去布拉耶斯/刀锋山都近。"
+  },
+  {
+    date:"10/1 – 10/4", icon:"🏠", cls:"b-ico-hotel", name:"Airbnb · 萨尔茨堡", tag:"主火车站附近",
+    addr:"Bergheimer Straße 45, Salzburg 5020, Austria",
+    phone:"见 Airbnb 订单",
+    note:"离主火近，方便坐 S3 / 840 去湖区；酒店 Guest Mobility Ticket 可免费坐萨尔茨堡公交。"
+  },
+  {
+    date:"10/4 – 10/7", icon:"🏨", cls:"b-ico-hotel", name:"AMANO HOME Apartments", tag:"柏林 · 米特区",
+    addr:"Torstrasse 52, 10119 Berlin, Germany",
+    phone:"+49 30 21300310",
+    note:"自助在线/App 入住，记得提前线上办理拿房间号（房间号不写在这）。地铁 Rosenthaler Platz 近。"
+  }
+];
+
+/* ================= 门票（含购票链接） ================= */
+const tickets = [
+  { icon:"🎨", name:"皮蒂宫 + 波波里花园", city:"佛罗伦萨", price:"16€ + 10€",
+    link:"https://www.uffizi.it/en/tickets", tip:"可现场，旺季建议线上"},
+  { icon:"💒", name:"圣母百花大教堂（穹顶《末日审判》）", city:"佛罗伦萨", price:"免费", link:"",
+    tip:"早晨 10 点开门人少，排队较长"},
+  { icon:"🌉", name:"朱莉亚故居（阳台）", city:"维罗纳", price:"基础5€/全票12€", link:"",
+    tip:"人多可不去，需官网预约"},
+  { icon:"🏛️", name:"维罗纳圆形竞技场", city:"维罗纳", price:"6€", link:"", tip:"现场购票"},
+  { icon:"🏔️", name:"Col Raiser / 刀锋山缆车", city:"多洛米蒂 Ortisei", price:"34€ 往返",
+    link:"https://www.seceda.it", tip:"现场买票，停车先打票"},
+  { icon:"🥾", name:"休斯高原 Alpe di Siusi", city:"多洛米蒂", price:"停车30€/天", link:"https://www.alpedisiusi.info",
+    tip:"⚠️ 2026/6/15 起强制线上预约（最早提前6天），务必提前订！"},
+  { icon:"🛶", name:"布拉耶斯湖游船", city:"Braies", price:"55€/船(45min)", link:"https://www.lagodibraies.com",
+    tip:"9/15 后停车场不用预约"},
+  { icon:"🎟️", name:"博物馆岛通票 Berlin", city:"柏林", price:"通票更划算", link:"https://shop.smb.museum/#/tickets/",
+    tip:"⚠️ 周一闭馆，你安排在 10/6（周二）OK"},
+  { icon:"⛪", name:"柏林大教堂 Berliner Dom", city:"柏林", price:"—", link:"https://www.berlinerdom.de",
+    tip:"《泪之女王》取景地"},
+  { icon:"🎬", name:"Babylon 百年影院《大都会》", city:"柏林", price:"—", link:"https://babylonberlin.eu/",
+    tip:"百年影院看经典电影，仪式感拉满"},
+  { icon:"🕳️", name:"柏林地下世界", city:"柏林", price:"17€ / 90min", link:"https://www.berliner-unterwelten.de/en/",
+    tip:"⚠️ 需提前预约讲解员，周一常闭"},
+  { icon:"🕵️", name:"柏林间谍博物馆", city:"柏林", price:"—", link:"https://www.deutsches-spionagemuseum.de/",
+    tip:"互动性强，约1.5-2h"}
+];
+
+/* ================= 逐日行程 ================= */
+const DAYS = [
+  {
+    date:"9/22", dow:"周二", num:"D1", title:"上海 → 威尼斯（飞行）", icon:"✈️", mode:"transit",
+    sub:"1整天在路上 · 抵达威尼斯入住",
+    stops:[
+      {t:"09:30",tz:"UTC+8",big:true,st:"上海浦东 PVG T2 起飞",d:"国航 <span class='hl'>CA8332</span> 空客321 · 点心餐 · 中转北京 2h35m 行李直达",mk:"ticket",maps:"上海浦东国际机场 T2"},
+      {t:"11:40",tz:"UTC+8",st:"抵达北京首都 PEK T3",d:"中转 2h35m，不用提行李",maps:"北京首都国际机场 T3"},
+      {t:"14:15",tz:"UTC+8",st:"北京首都 PEK T3 起飞",d:"国航 <span class='hl'>CA973</span> 空客330 · 有餐食 / 托运1×23kg / 手提1×5kg",maps:"北京首都国际机场 T3"},
+      {t:"19:15",tz:"UTC+2",big:true,st:"🛬 落地威尼斯马可波罗机场 VCE",d:"机场大巴 ≈30min / 12€ 到 Mestre，入住酒店",mk:"ok",maps:"威尼斯马可·波罗机场 (VCE)"},
+      {t:"晚间",st:"🧳 入住 a&o Venezia Mestre",d:"Via Ca' Marcello 19 · 电话 041 884 0990 · 机场大巴约1000-1400/晚",mk:"warn",maps:"a&o Hostel Venezia Mestre"}
+    ],
+    over:"威尼斯"
+  },
+  {
+    date:"9/23", dow:"周三", num:"D2", title:"威尼斯半日游 → 佛罗伦萨", icon:"🚄", mode:"transit",
+    sub:"环主岛步行约7km · 09:30出发 → 15:00回车站 → 16:05 火车去佛罗伦萨",
+    stops:[
+      {t:"08:45",st:"🧳 退房 · 行李带去主岛",d:"建议<b>带到主岛 S.Lucia 火车站官方寄存</b>（6€/4h，每+1h +1€）——16:05 你直接从主岛坐车走；别存 Mestre，回头取行李赶不上",maps:"Venezia Santa Lucia 火车站"},
+      {t:"~09:00",st:"🎫 买上主岛车票",d:"Mestre→主岛 S.Lucia，自助售票机(有中文)，1.5€/成人，Apple Pay 绑 Visa；票要在绿色打卡机打卡",mapchip:true,maps:"Venezia Mestre 火车站"},
+      {t:"09:30",big:true,st:"🚉 威尼斯主岛步行环线（起点）",d:"约 <b>7km · 纯走1h25m</b>（逛遍5–7h）｜绕一圈最后回车站；<b>全程留意随身物</b>",maps:"Venezia Santa Lucia 火车站"},
+      {t:"09:40",st:"赤足桥 Ponte degli Scalzi",d:"10min·700m｜威尼斯最古老石桥之一，拍桥+大运河开场",maps:"Ponte degli Scalzi"},
+      {t:"10:00",big:true,st:"里亚托桥 Ponte di Rialto",d:"12min·850m｜<b>威尼斯地标</b>，俯瞰大运河；10:30 前人稍少，抓紧拍",maps:"Rialto Bridge"},
+      {t:"11:30",st:"沉船书店 Libreria Acqua Alta",d:"8min·600m｜世界最美书店之一，书堆在贡多拉/浴缸里，很好拍",maps:"Libreria Acqua Alta"},
+      {t:"12:05",st:"叹息桥 Ponte dei Sospiri",d:"6min·450m｜连接总督府与监狱，历史感十足",maps:"Bridge of Sighs"},
+      {t:"12:20",big:true,st:"圣马可广场 Piazza San Marco",d:"11min·800m｜大教堂/总督府/钟楼+<b>午餐</b>；想进教堂要排队，时间紧看外观即可",maps:"Piazza San Marco"},
+      {t:"14:00",st:"学院桥 Ponte dell'Accademia",d:"15min·1.1km｜最佳大运河观景点之一",maps:"Ponte dell'Accademia"},
+      {t:"14:30",st:"宪法桥 Ponte della Costituzione",d:"17min·1.2km｜现代感玻璃桥，视野开阔",maps:"Ponte della Costituzione"},
+      {t:"15:00",big:true,st:"🚉 返回 S. Lucia 火车站",d:"17min·1.2km 回到起点；<b>留1小时缓冲</b>取行李、找站台",maps:"Venezia Santa Lucia 火车站"},
+      {t:"16:05",tz:"UTC+2",big:true,st:"🚄 威尼斯 → 佛罗伦萨（火车）",d:"提前买票、提前到站台；区间车要抢座位,临近车站请预留",mk:"book",maps:"Venezia Santa Lucia 火车站"},
+      {t:"傍晚",st:"🏠 入住佛罗伦萨 Airbnb",d:"Via degli Orti Oricellari 31, 50123 Firenze（SMN 火车站附近）",mk:"ok",maps:"Via degli Orti Oricellari 31, Firenze"}
+    ],
+    over:"佛罗伦萨"
+  },
+  {
+    date:"9/24", dow:"周四", num:"D3", title:"佛罗伦萨经典一日", icon:"🏛️", mode:"walking",
+    sub:"圣母百花 → 皮蒂宫 → 米开朗基罗广场日落",
+    stops:[
+      {t:"10:00",big:true,st:"💒 圣母百花大教堂",d:"穹顶《末日审判》必看 · 免费 · 10 点开门人最少，其余时间排长队",maps:"圣母百花大教堂 佛罗伦萨"},
+      {t:"午后",st:"☕ L'Opera Caffe 下午茶",d:"教堂旁咖啡馆，最佳合影机位",maps:"L'Opera Caffe Florence"},
+      {t:"午后",st:"📚 Giunti Odeon 百年书店",d:"一楼书店二楼电影院，很出片，免费可坐",maps:"Giunti Odeon Firenze"},
+      {t:"下午",st:"🎨 皮蒂宫 + 波波里花园",d:"(16€+10€) 美第奇府邸，巴洛克台地园林，可俯瞰城市",mk:"book",maps:"皮蒂宫 佛罗伦萨"},
+      {t:"傍晚",big:true,st:"🌄 米开朗基罗广场看日落",d:"带啤酒+披萨坐台阶等落日；圣米尼亚托教堂往上 7min、人少全景更佳",maps:"米开朗基罗广场 佛罗伦萨"}
+    ],
+    over:"佛罗伦萨"
+  },
+  {
+    date:"9/25", dow:"周五", num:"D4", title:"佛罗伦萨 → 锡耶纳", icon:"🚗", mode:"driving",
+    sub:"火车站取车 → 自驾 1h15m 锡耶纳",
+    stops:[
+      {t:"09:00",big:true,st:"🚗 佛罗伦萨取车 · Budget",d:"Via Maso Finiguerra 13r, 50123 Firenze · 电话 055 238 2697",mk:"book",maps:"Budget Autonoleggio Firenze Via Maso Finiguerra 13r"},
+      {t:"~10:15",st:"🛞 自驾 1h15m 到锡耶纳",d:"基本 2€/h 停车；<b>Parcheggio San Francesco</b>（Via B. Peruzzi 18）大，坐超长电梯进主城",mk:"warn",maps:"Parcheggio San Francesco Siena"},
+      {t:"中午",big:true,st:"🏰 锡耶纳主城",d:"贝壳广场 / 锡耶纳大教堂 / 中世纪老街",maps:"Piazza del Campo Siena"},
+      {t:"傍晚",st:"🏠 开车 1h 到托斯卡纳民宿",d:"Agriturismo La Casa Nuova · 入住",mk:"ok",maps:"Agriturismo La Casa Nuova Castelmuzio"}
+    ],
+    over:"托斯卡纳乡间"
+  },
+  {
+    date:"9/26", dow:"周六", num:"D5", title:"锡耶纳 → 皮恩扎 → 锡耶纳", icon:"🌻", mode:"driving",
+    sub:"托斯卡纳田园风光 · 柏树 · 日落 Monticchiello",
+    stops:[
+      {t:"上午",st:"🚗 开车前往皮恩扎",d:"停车 <b>Coop, Via S. Gregorio</b> 免费，对面是超市，周边可停",maps:"Coop Pienza"},
+      {t:"上午",big:true,st:"⛪ 小耳朵教堂",d:"导航 parcheggio x vitaleta 停车再步行；教堂边大片小黄花超美",maps:"Cappella della Madonna di Vitaleta"},
+      {t:"中午",st:"🌳 柏树打卡",d:"S形：Agriturismo baccoleno；双排S：Poggio Covili / Cipressi di San Quirico；Z形：Punto Panoramico Cipreces en Zigzag",maps:"Punto Panoramico Cipressi in Zigzag"},
+      {t:"日落",big:true,st:"🌇 日落 Monticchiello",d:"值得！田园全景",mk:"ok",maps:"Monticchiello 意大利"},
+      {t:"晚间",st:"🏠 回民宿",d:"",maps:"User:Castelmuzio"}
+    ],
+    over:"托斯卡纳乡间"
+  },
+  {
+    date:"9/27", dow:"周日", num:"D6", title:"锡耶纳 → 佛罗伦萨还车 → 维罗纳", icon:"🚄", mode:"train",
+    sub:"上午还车 → 火车去维罗纳，下午山顶全景",
+    stops:[
+      {t:"上午",st:"🚗 开车 1h 回佛罗伦萨还车",d:"Budget 还车位于 Via Maso Finiguerra 15",mk:"ok",maps:"Budget Firenze return Via Maso Finiguerra 15"},
+      {t:"中午",st:"🚄 火车前往维罗纳",d:"提前买票",mk:"book",maps:"Firenze Santa Maria Novella"},
+      {t:"午后",big:true,st:"🏠 入住 Casa Italia",d:"Piazza Renato Simoni 14, Verona · 楼下就是 Porta Nuova 火车站",mk:"ok",maps:"Casa Italia Piazza Renato Simoni 14 Verona"},
+      {t:"下午",st:"🌄 Castel San Pietro 山顶",d:"缆车 3€ 往返（单程2€），维罗纳最佳观景台，上面有酒吧",maps:"Castel San Pietro Verona"},
+      {t:"傍晚",st:"🏛️ 朱莉亚故居(可选)",d:"基础5€/全票12€,需官网预约；人多可不去",mk:"book",maps:"Casa di Giulietta Verona"},
+      {t:"日落",big:true,st:"🏟️ 百草广场 + 圆形竞技场",d:"竞技场 6€ 现场买，意大利现存最完整古罗马剧场 · 来盘正宗意面收官",mk:"warn",maps:"Piazza Bra Verona"}
+    ],
+    over:"维罗纳"
+  },
+  {
+    date:"9/28", dow:"周一", num:"D7", title:"维罗纳 → 博尔扎诺 → Brixen 富内斯山谷", icon:"🏔️", mode:"driving",
+    sub:"08:49 火车 → 博尔扎诺取车 → 上富内斯山谷看日照金山",
+    stops:[
+      {t:"08:49",tz:"UTC+2",big:true,st:"🚄 维罗纳 Verona Porta Nuova → 博尔扎诺",d:"区间车<b>无固定座位</b>，需抢座；提前到+提行李",mk:"book",maps:"Verona Porta Nuova 火车站"},
+      {t:"~10:00",st:"🚗 博尔扎诺取车 · Budget",d:"Via Luigi Galvani, 1F, 39100 Bolzano · 电话 0471 212 560 · 打车/公交约20分钟",mk:"book",maps:"Budget Via Luigi Galvani 1F Bolzano"},
+      {t:"中午",st:"🛞 自驾 40km ≈1h 到 Brixen",d:"上山入住 Gebreitnerhof",mk:"ok",maps:"Gebreitnerhof Brixen"},
+      {t:"下午",big:true,st:"🏞️ 富内斯山谷 Val di Funes",d:"车停谷口 <b>Parkplatz Bergerplatz</b>(4€可刷卡)再步行；徒步 Malga Zannes(10€/次,10km爬升500m,小白友好)",maps:"Parkplatz Bergerplatz Val di Funes"},
+      {t:"~20:00",big:true,st:"🗻 Panorama Sitzbank 日照金山",d:"约20:00，需走20-30min上山，提前预留时间；返程经过孤独星球教堂 St Johann",mk:"warn",maps:"Panorama Sitzbank Val di Funes"},
+      {t:"晚间",st:"🍝 Salty dog fish restaurant",d:"山下海鲜性价比高，推荐龙虾意面；人手少高峰期上菜慢",maps:"Salty dog fish restaurant Val di Funes"}
+    ],
+    over:"Brixen"
+  },
+  {
+    date:"9/29", dow:"周二", num:"D8", title:"布拉耶斯湖 Lago di Braies", icon:"🛶", mode:"driving",
+    sub:"自驾 1h+ → 高山湖 · 游船 · 环湖",
+    stops:[
+      {t:"上午",st:"🚗 自驾前往布拉耶斯湖",d:"实际车程约 1h15-1h30，多留 30min buffer",mk:"warn",maps:"Lago di Braies"},
+      {t:"~11:00",big:true,st:"🅿️ P3 停车场",d:"不限时12€，距湖边400m；<b>9/15 后不用预约</b>",maps:"Lago di Braies P3"},
+      {t:"中午",st:"🛶 划游船",d:"45min 55€/船（最多5人）",mk:"book",maps:"Lago di Braies 船码头"},
+      {t:"下午",big:true,st:"🥾 环湖一圈",d:"1.5-2h，顺时针更省力；时间充裕可去 Puez Geisler 自然公园",maps:"Lago di Braies 环湖步道"},
+      {t:"傍晚",st:"🚗 回 Brixen 住宿",d:"",maps:"Gebreitnerhof Brixen"}
+    ],
+    over:"Brixen"
+  },
+  {
+    date:"9/30", dow:"周三", num:"D9", title:"刀锋山 Seceda + 休斯高原", icon:"⛰️", mode:"driving",
+    sub:"缆车上半山 → 徒步到山顶 → 5点后上休斯高原",
+    stops:[
+      {t:"上午",st:"🚗 自驾 ≈1h 到 Ortisei",d:"起点导航 <b>Col Raiser 缆车站</b>(Christina镇)，停车先打票(4h 10€)",maps:"Col Raiser Seilbahn"},
+      {t:"上午",big:true,st:"🎫 Col Raiser 缆车往返",d:"34€/人 现场买，缆车到半山腰",mk:"book",maps:"Col Raiser Seilbahn"},
+      {t:"中午",st:"🥾 徒步 col raiser → SECEDA",d:"1.5-2h(3-4km)到山顶，刀锋山标志性崖壁",mk:"ok",maps:"Seceda 顶峰"},
+      {t:"~17:00",big:true,st:"🅿️ 上休斯高原 Alpe di Siusi",d:"导航 Parking Compatsch，<b>五点后可开上去</b>，30€/天(小车)；<span class='hl'>⚠️ 2026/6/15 起强制线上预约，最早提前6天，务必提前订！</span>",mk:"warn",maps:"Parking Compatsch Alpe di Siusi"},
+      {t:"傍晚",st:"🥾 单边4km轻徒步 1.5h",d:"平路缓坡，终点 Panorama Alpe Siusi；一天双徒步偏满，体力不够可砍 Seceda 二段",maps:"Panorama Alpe Siusi"}
+    ],
+    over:"Brixen"
+  },
+  {
+    date:"10/1", dow:"周四", num:"D10", title:"博尔扎诺还车 → 萨尔茨堡", icon:"🚄", mode:"train",
+    sub:"还车 → 步行15min到火车站 → 火车4h到萨尔茨堡",
+    stops:[
+      {t:"上午",st:"🚗 开车40min回博尔扎诺还车",d:"附近加油后还车；地址 Via Luigi Galvani, 1F",mk:"ok",maps:"Budget Via Luigi Galvani 1F Bolzano"},
+      {t:"上午",st:"🚶 步行15min到车站",d:"携带行李预留时间",maps:"Bolzano Bozen 火车站"},
+      {t:"12:34",tz:"UTC+2",big:true,st:"🚄 博尔扎诺 → 萨尔茨堡（已出票）",d:"RJ 86 12:34 出发 → 因斯布鲁克换乘 24min → RJX 13479 → <b>17:02 到萨尔茨堡</b> (Pl. 4C-F) · 2等座 · 座位固定",mk:"ok",maps:"Bolzano Bozen 火车站"},
+      {t:"傍晚",st:"🏠 入住萨尔茨堡 Airbnb",d:"Bergheimer Straße 45, Salzburg 5020 · 主火附近 · 休整",mk:"ok",maps:"Bergheimer Straße 45, Salzburg"}
+    ],
+    over:"萨尔茨堡"
+  },
+  {
+    date:"10/2", dow:"周五", num:"D11", title:"圣吉尔根 St. Gilgen", icon:"🚠", mode:"transit",
+    sub:"150路 → 缆车 → 船去圣沃尔夫冈 → 滑草",
+    stops:[
+      {t:"上午",st:"🚌 150路 40min 到 Zwölferhorn 缆车站",d:"用 <b>salzburg verkehr</b> 查班次；离巴士站5min",maps:"Zwölferhorn Seilbahn St Gilgen"},
+      {t:"上午",big:true,st:"🚠 Zwölferhorn 缆车往返",d:"34€ 往返，山顶看 Wolfgangsee + 阿尔卑斯；缆车附近可约滑翔伞",mk:"book",maps:"Zwölferhorn Seilbahn"},
+      {t:"中午",st:"🚢 船 圣吉尔根 → 圣沃尔夫冈",d:"认准 <b>Wolfgangsee Schifffahrt</b> 粉牌子，成人 23.6€ 现场可刷卡；实时看电子屏",maps:"Wolfgangsee Schifffahrt St Gilgen"},
+      {t:"下午",big:true,st:"🛷 滑草",d:"Gschwendt b.Strobl Landauer · 6次45欧，建议找人拼；<b>17:00 准时关门，雨天不开</b>",maps:"Gschwendt b.Strobl Landauer"},
+      {t:"傍晚",st:"🚌 150路 回萨尔茨堡",d:"",maps:"Salzburg Hauptbahnhof"}
+    ],
+    over:"萨尔茨堡"
+  },
+  {
+    date:"10/3", dow:"周六", num:"D12", title:"拉姆绍 + 国王湖（湖区的尽头）", icon:"🏔️", mode:"transit",
+    sub:"840/846 公交 · 国王湖船 · Obersee",
+    stops:[
+      {t:"08:10",tz:"UTC+2",big:true,st:"🚌 840路 萨尔茨堡 → Berchtesgaden",d:"火车站右边商场对面 J 站台；<b>买一日票 13.6€ 只能现金</b>",maps:"Salzburg Hauptbahnhof 公交站"},
+      {t:"09:15",st:"🚌 转846 → Ramsau Kirche",d:"下车就是教堂，逗留拍照，旁边有免费厕所",maps:"Ramsau Kirche"},
+      {t:"10:00",st:"🚌 → Hintersee 后湖",d:"终点站下车环湖半周，赶上半小时后回程车",maps:"Hintersee 贝希特斯加登"},
+      {t:"11:35",st:"🚌 → Berchtesgaden → Königssee",d:"转840，下车走5min到码头",maps:"Königssee 码头"},
+      {t:"中午",big:true,st:"🚢 国王湖往返船票",d:"终点 salet，29.8€/人 可刷卡；约55min，湖心红教堂停一站；人满就开不限时",mk:"book",maps:"Königssee Seelände 码头"},
+      {t:"下午",big:true,st:"🥾 Obersee 上湖",d:"终点步行10多分钟，环湖一圈到<b>牛奶小屋</b>喝鲜奶，可上到瀑布（不爱徒步在小屋折返）",mk:"ok",maps:"Obersee 国王湖"},
+      {t:"15:26",tz:"UTC+2",st:"🚌 840路 Königssee → 萨尔茨堡",d:"15:26-16:34 记得准时",maps:"Königssee 码头"}
+    ],
+    over:"萨尔茨堡"
+  },
+  {
+    date:"10/4", dow:"周日", num:"D13", title:"萨尔茨堡 → 柏林", icon:"🚄", mode:"train",
+    sub:"长途火车（经慕尼黑）→ 入住 → RAW-Gelände",
+    stops:[
+      {t:"10:00",tz:"UTC+2",big:true,st:"🚄 萨尔茨堡 → 柏林（已出票）",d:"ICE 210 10:00 出发 → 慕尼黑换乘 39min → ICE 1508 (Sprinter) → <b>16:24 到柏林 Hbf</b> · 2等座 · 座位固定 · 车程较长备好水与零食",mk:"ok",maps:"Salzburg Hauptbahnhof"},
+      {t:"午后",big:true,st:"🏠 入住 AMANO HOME",d:"Torstrasse 52, 10119 Berlin · 电话 030 21300310 · 提前App自助入住",mk:"ok",maps:"AMANO HOME Apartments Torstrasse 52 Berlin"},
+      {t:"傍晚",st:"🏬 RAW-Gelände 街头文化区",d:"涂鸦墙 / 复古商店 / 酒吧 / 街头艺术，很适合拍照",maps:"RAW-Gelände Berlin"}
+    ],
+    over:"柏林"
+  },
+  {
+    date:"10/5", dow:"周一", num:"D14", title:"柏林 · 地下与市集", icon:"🕵️", mode:"transit",
+    sub:"间谍博物馆 → 地下世界 → 市集",
+    stops:[
+      {t:"上午",st:"🕵️ 柏林间谍博物馆",d:"互动好玩，约1.5-2h",mk:"book",maps:"Deutsches Spionagemuseum Berlin"},
+      {t:"下午",big:true,st:"🕳️ 柏林地下世界 Brunnenstrasse 14",d:"17€/90min，二战高射炮塔废墟；<b>需提前预约讲解员，周一常闭</b>",mk:"book",maps:"Berliner Unterwelten Brunnenstrasse 14"},
+      {t:"下午",st:"🛍️ 柏林市集",d:"Mauerpark / Arkonaplatz / Holzmarkt 三选一二",mk:"warn",maps:"Mauerpark Berlin"},
+      {t:"晚间",st:"🚇 地铁站打卡",d:"Heidelberger Platz 拱顶吊灯 / Wittenbergplatz 老西柏林 / Alexanderplatz 世界钟",maps:"Heidelberger Platz 地铁站 柏林"}
+    ],
+    over:"柏林"
+  },
+  {
+    date:"10/6", dow:"周二", num:"D15", title:"柏林 · 博物馆岛 & 东边画廊", icon:"🏛️", mode:"walking",
+    sub:"博物馆岛 → 柏林大教堂 → 东边画廊 → 百年影院",
+    stops:[
+      {t:"上午",big:true,st:"🏛️ 博物馆岛 Museum Island",d:"五座博物馆，<b>周一闭馆，你是周二 OK</b>；建议通票，佩加蒙在大修；购票 shop.smb.museum",mk:"book",maps:"Museum Island Berlin"},
+      {t:"中午",st:"⛪ 柏林大教堂",d:"导航 Adolph-Diesterweg-Denkmal 或 James-Simon-Park；《泪之女王》取景地，草地+河岸+教堂很出片",maps:"Berliner Dom"},
+      {t:"下午",big:true,st:"🎨 东边画廊 兄弟之吻",d:"Mühlenstraße 79 / 亲吻图地点 Mühlenstraße, 10243 Berlin",maps:"East Side Gallery Berlin"},
+      {t:"晚间",st:"🎬 Babylon 百年影院《大都会》",d:"99年前的电影，仪式感十足，提前订座",mk:"book",maps:"Babylon Berlin 影院"}
+    ],
+    over:"柏林"
+  },
+  {
+    date:"10/7", dow:"周三", num:"D16", title:"柏林购物 → 伊斯坦布尔（中转）", icon:"🛫", mode:"flights",
+    sub:"上午购物 → 15:15 起飞 → 19:15 落地伊斯坦布尔",
+    stops:[
+      {t:"上午",st:"🛍️ 柏林购物街区",d:"Kurfürstendamm / ALEXA Berlin / bergmannkiez 街区",maps:"Kurfürstendamm 柏林"},
+      {t:"15:15",tz:"UTC+2",big:true,st:"🛫 柏林 BER T1 → 伊斯坦布尔",d:"土耳其航空 TK1726 · 3h · 有餐食",mk:"ok",maps:"Berlin Brandenburg Airport T1"},
+      {t:"19:15",tz:"UTC+3",big:true,st:"🛬 落地伊斯坦布尔 IST",d:"中转 <b>19h55m 跨天</b> · 行李直达 · 无需过境签",maps:"伊斯坦布尔机场 (IST)"},
+      {t:"晚间",st:"🏨 中转住宿",d:"⚠️ 土航 Stopover 免费酒店通常要 ≥20h（你19h55m 多半不符）；TourIstanbul 免费半日游(6-24h)符合，<b>务必提前在土航官网登记</b>",mk:"warn",maps:"伊斯坦布尔机场 (IST)"}
+    ],
+    over:"伊斯坦布尔（中转）"
+  },
+  {
+    date:"10/8", dow:"周四", num:"D17", title:"伊斯坦布尔 → 上海", icon:"🛫", mode:"flights",
+    sub:"15:10 起飞 · 跨天飞回上海",
+    stops:[
+      {t:"白天",st:"🌆 伊斯坦布尔（机动）",d:"若登记了 TourIstanbul 半日游可市区走一遭；否则机场休息",mk:"warn",maps:"伊斯坦布尔市区"},
+      {t:"15:10",tz:"UTC+3",big:true,st:"🛫 伊斯坦布尔 → 上海",d:"土耳其航空 TK280 · 大787 · 10h15m",mk:"ok",maps:"伊斯坦布尔机场 (IST)"}
+    ],
+    over:"飞行"
+  },
+  {
+    date:"10/9", dow:"周五", num:"D18", title:"落地上海", icon:"🛬", mode:"flights",
+    sub:"06:25 抵达浦东 · 回家",
+    stops:[
+      {t:"06:25",tz:"UTC+8",big:true,st:"🛬 落地上海浦东 PVG T2",d:"旅行圆满收官 🎉",mk:"ok",maps:"上海浦东国际机场 T2"}
+    ],
+    over:"上海"
+  }
+];
+
+/* ================= 实用贴士 ================= */
+const TIPS = [
+  {icon:"💶",tt:"欧元",d:"已买 700€ @7.81；国王湖公交一日票 13.6€ <b>只收现金</b>，备点零钱。"},
+  {icon:"📶",tt:"电话卡",d:"Vodafone / Orange，机场或市区购买；欧洲流量卡注意跨国漫游。"},
+  {icon:"🔌",tt:"插头",d:"带<b>欧标转换插头</b>（两圆孔）；瑞士/意式插座不同，备万能头。"},
+  {icon:"🧳",tt:"防盗与行李",d:"行李绑带锁 / 手机挂绳 / 防盗刷卡套 / 防盗腰包；火车站人流密集地尤其注意。"},
+  {icon:"🚄",tt:"火车",d:"意/奥/德长途火车<b>提前线上购票</b>更划算；区间车无固定座位需抢座。salzburg verkehr & OBB tickets 可查班次购票。"},
+  {icon:"🚗",tt:"租车",d:"带<b>国际驾照（海牙认证）</b>+主驾护照+押金卡；意大利靠右行驶；多洛米蒂山路易起雾慢开。"},
+  {icon:"🏨",tt:"酒店入住",d:"Airbnb 记得提前线上填入住信息；AMANO 自助入住需提前办。"},
+  {icon:"🕘",tt:"闭馆日",d:"博物馆岛 / 许多博物馆<b>周一闭馆</b>；柏林地下世界周一常闭；已按你的日期排好。"},
+  {icon:"🗺️",tt:"导航",d:"离线下载 Google 地图 + 多洛米蒂山路离线包；乘车前查好站台。"},
+  {icon:"🎟️",tt:"预约型",d:"休斯高原（强制线上预约）、地下世界讲解团、朱莉亚故居阳台、百年影院《大都会》都需提前订。"}
+];
+
+/* ================= 待办 ================= */
+const TODOS = [
+  {txt:"订火车票 · 威尼斯→佛罗伦萨 (9/23)", tag:"DO", desc:"16:05 区间车需抢座,尽量提前"}, 
+  {txt:"订火车票 · 佛罗伦萨→维罗纳 (9/27)", tag:"DO", desc:"提前买更划算"},
+  {txt:"订火车票 · 维罗纳→博尔扎诺 (9/28)", tag:"DO", desc:"08:49 区间车,无固定座位"},
+  {txt:"休斯高原 Alpe di Siusi 线上预约", tag:"MUST", desc:"2026/6/15 起强制约；9/30 上山，预约窗口 9/24–9/29，最早提前6天", urgent:true},
+  {txt:"柏林地下世界预约讲解员", tag:"DO", desc:"berliner-unterwelten.de 提前订"},
+  {txt:"Babylon《大都会》订座", tag:"DO", desc:"10/6 晚间场,百年影院"},
+  {txt:"皮蒂宫/波波里 + 博物馆岛通票", tag:"DO", desc:"旺季建议线上,博物馆岛通票更划算"},
+  {txt:"朱莉亚故居官网预约", tag:"DO", desc:"要么网上订,要么现场可能排队"},
+  {txt:"伊斯坦布尔中转 · 土航 Stopover / TourIstanbul 登记", tag:"MUST", desc:"停19h55m,Stopover 需≥20h 多半不符；TourIstanbul 半日游(6-24h)符合,提前官网登记", urgent:true},
+  {txt:"办国际驾照（海牙认证）", tag:"MUST", desc:"预估 ¥600，出发前 2 周办好", urgent:true},
+  {txt:"买电话卡（Vodafone / Orange）", tag:"DO", desc:"提前买好以免落地没网"},
+  {txt:"换欧元零钱", tag:"DO", desc:"国王湖一日票只收现金；已有 700€ @7.81"},
+  {txt:"带转换插头 / 行李绑带锁 / 防盗套装", tag:"DO", desc:"欧标插头、手机挂绳、防盗刷卡套、防盗腰包"},
+  {txt:"下载离线地图 + 多洛米蒂山路包", tag:"DO", desc:"Google Maps 离线,避免没信号"}
+];
+
+/* ================= 渲染：焦点事件/倒计时 ================= */
+function tick(){
+  const now = Date.now();
+  /* 找下一个未来事件 */
+  let next = null;
+  for(const ev of focusEvents){
+    const t = new Date(ev.iso).getTime();
+    if(t > now){ next = ev; break; }
+  }
+  if(next){
+    const t = new Date(next.iso).getTime();
+    const diff = Math.max(0, t - now);
+    document.getElementById('focusEvt').textContent = next.label;
+    document.getElementById('focusTz').textContent = "当地时间 " + next.iso.slice(11,16) + " · " + tzLabel(next.iso);
+    document.getElementById('d').textContent = pad2(Math.floor(diff/86400000));
+    document.getElementById('h').textContent = pad2(Math.floor(diff/3600000)%24);
+    document.getElementById('m').textContent = pad2(Math.floor(diff/60000)%60);
+    document.getElementById('s').textContent = pad2(Math.floor(diff/1000)%60);
+    /* next after */
+    const rest = focusEvents.slice(focusEvents.indexOf(next)+1);
+    if(rest.length){
+      document.getElementById('focusNext').textContent = "之后：" + rest[0].label;
+    } else {
+      document.getElementById('focusNext').textContent = "这是行程的最后一个节点";
+    }
+  } else {
+    document.getElementById('focusEvt').textContent = "行程已全部完成 🎉";
+    document.getElementById('d').textContent="00";document.getElementById('h').textContent="00";
+    document.getElementById('m').textContent="00";document.getElementById('s').textContent="00";
+  }
+}
+
+/* ================= 渲染：总览地图 SVG ================= */
+function buildMap(){
+  /* 交通方式配色（与图例一致） */
+  const FLY  ={c:"#8a94a5",w:3,  dash:"8 7", name:"✈️ 飞行（虚线）"};
+  const TRAIN={c:"#4a6db5",w:3.6,dash:"",    name:"🚄 火车"};
+  const CAR  ={c:"#2c8a4b",w:3.6,dash:"",    name:"🚗 自驾"};
+  const BUS  ={c:"#0e8a8a",w:2.8,dash:"",    name:"🚌 公交/船"};
+  const STAY ="#d4762a", INK="#2b3a5c";
+
+  /* 城市节点：x,y / la=标签方位 / stay=住宿晚数 / q=地图搜索词 */
+  const nodes={
+    SHA:{x:95, y:555,label:"上海",     la:"top",  q:"Shanghai China"},
+    VCE:{x:330,y:330,label:"威尼斯",   la:"top",  stay:"1晚",   q:"Venice Italy"},
+    FLR:{x:268,y:412,label:"佛罗伦萨", la:"left", stay:"2晚",   q:"Florence Italy"},
+    SIE:{x:262,y:458,label:"锡耶纳",   la:"right",             q:"Siena Italy"},
+    TUS:{x:238,y:485,label:"托斯卡纳", la:"left", stay:"2晚",   q:"Pienza Tuscany"},
+    VER:{x:265,y:282,label:"维罗纳",   la:"left", stay:"1晚",   q:"Verona Italy"},
+    BOL:{x:282,y:246,label:"博尔扎诺", la:"left",               q:"Bolzano Italy"},
+    BRI:{x:312,y:214,label:"Brixen",  la:"top",  stay:"3晚",   q:"Bressanone Italy"},
+    SZG:{x:408,y:178,label:"萨尔茨堡", la:"top",  stay:"3晚",   q:"Salzburg Austria"},
+    KON:{x:415,y:216,label:"国王湖",   la:"right",             q:"Königssee Berchtesgaden"},
+    BER:{x:520,y:78, label:"柏林",     la:"right",stay:"3晚",   q:"Berlin Germany"},
+    IST:{x:775,y:470,label:"伊斯坦布尔",la:"top", stay:"中转1晚",q:"Istanbul Turkey"}
+  };
+
+  /* 路段：a→b / m=方式 / d=天数徽标 / side=弯曲与徽标侧 / bp=徽标手调 / c=控制点手调 */
+  const segs=[
+    {a:"SHA",b:"VCE",m:FLY,  d:"D1",  c:[240,560], bp:[200,520]},
+    {a:"VCE",b:"FLR",m:TRAIN,d:"D2"},
+    {a:"FLR",b:"SIE",m:CAR,  d:"D4"},
+    {a:"SIE",b:"TUS",m:CAR,  d:"D4",  bp:[276,480]},
+    {a:"TUS",b:"FLR",m:CAR,  d:"D6",  side:-1, bp:[215,447]},
+    {a:"FLR",b:"VER",m:TRAIN,d:"D6"},
+    {a:"VER",b:"BOL",m:TRAIN,d:"D7"},
+    {a:"BOL",b:"BRI",m:CAR,  d:"D7",  side:-1},
+    {a:"BRI",b:"SZG",m:TRAIN,d:"D10"},
+    {a:"SZG",b:"KON",m:BUS,  d:"D12", bp:[445,197]},
+    {a:"SZG",b:"BER",m:TRAIN,d:"D13", side:-1},
+    {a:"BER",b:"IST",m:FLY,  d:"D16", c:[760,150]},
+    {a:"IST",b:"SHA",m:FLY,  d:"D17", c:[430,640]}
+  ];
+
+  const HALO='stroke="#f7f2e7" stroke-width="3" paint-order="stroke" stroke-linejoin="round"';
+  let s="";
+
+  /* 纸张背景 + 复古双边框 */
+  s+='<defs><linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">'+
+    '<stop offset="0" stop-color="#f8f4ea"/><stop offset="1" stop-color="#efe7d6"/></linearGradient>'+
+    '<filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" result="n"/>'+
+    '<feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"/></filter></defs>';
+  s+='<rect x="0" y="0" width="900" height="640" fill="url(#paper)" rx="12"></rect>';
+  s+='<rect x="8" y="8" width="884" height="624" rx="10" fill="none" stroke="#b9ab8d" stroke-width="2" opacity=".55"></rect>';
+  s+='<rect x="15" y="15" width="870" height="610" rx="8" fill="none" stroke="#b9ab8d" stroke-width="1" opacity=".3"></rect>';
+
+  /* 海域（亚得里亚海 / 马尔马拉海 / 波罗的海） */
+  ['M362,290 Q450,395 428,558 Q470,578 512,560 Q548,420 472,278 Q415,260 362,290 Z',
+   'M735,515 Q780,565 855,540 Q872,485 825,460 Q770,455 735,515 Z',
+   'M562,34 Q640,18 700,44 Q704,80 640,86 Q574,80 562,34 Z'
+  ].forEach(d=>{ s+='<path d="'+d+'" fill="#cfe3ef" fill-opacity=".55" stroke="#9cc0d8" stroke-width="1.5" filter="url(#rough)"></path>'; });
+
+  /* 指北针 */
+  s+='<g opacity=".75"><circle cx="48" cy="52" r="16" fill="#fdfaf2" stroke="#7a6a44" stroke-width="1.4"></circle>'+
+    '<path d="M48,62 L43.5,46 L48,50.5 L52.5,46 Z" fill="#b04a3a"></path>'+
+    '<text x="48" y="30" text-anchor="middle" font-size="11" font-weight="700" fill="#7a6a44">N</text></g>';
+
+  /* 阿尔卑斯山脉 */
+  s+='<path d="M225,175 l16,-13 l12,9 l15,-15 l12,9 l16,-13" fill="none" stroke="#98a3ae" stroke-width="1.6" opacity=".55"></path>';
+  s+='<text x="262" y="157" font-size="10" fill="#8a95a1">阿尔卑斯山</text>';
+
+  /* 国家 / 海域名称 */
+  [["意大利",150,470,15],["奥地利",350,118,13],["德国",600,140,15],["土耳其",690,552,13]].forEach(g=>{
+    s+='<text x="'+g[1]+'" y="'+g[2]+'" text-anchor="middle" font-size="'+g[3]+'" font-style="italic" fill="#3b4a66" opacity=".38" '+HALO+'>'+g[0]+'</text>'; });
+  [["亚得里亚海",452,415,12],["波罗的海",632,58,10]].forEach(g=>{
+    s+='<text x="'+g[1]+'" y="'+g[2]+'" text-anchor="middle" font-size="'+g[3]+'" font-style="italic" fill="#5b87b0" opacity=".8" '+HALO+'>'+g[0]+'</text>'; });
+
+  /* 路线 + 方向箭头 + 天数徽标 */
+  segs.forEach(g=>{
+    const A=nodes[g.a], B=nodes[g.b];
+    const mx=(A.x+B.x)/2, my=(A.y+B.y)/2;
+    let cx,cy,bx,by;
+    if(g.c){ cx=g.c[0]; cy=g.c[1]; }
+    else{
+      const dx=B.x-A.x, dy=B.y-A.y, L=Math.hypot(dx,dy)||1;
+      const px=-dy/L, py=dx/L, sd=(g.side||1);
+      cx=mx+px*12*sd; cy=my+py*12*sd;
+    }
+    if(g.bp){ bx=g.bp[0]; by=g.bp[1]; }
+    else{ bx=0.25*A.x+0.5*cx+0.25*B.x; by=0.25*A.y+0.5*cy+0.25*B.y; }
+    const dash=g.m.dash?'stroke-dasharray="'+g.m.dash+'"':'';
+    s+='<path d="M'+A.x+','+A.y+' Q '+cx+','+cy+' '+B.x+','+B.y+'" fill="none" stroke="'+g.m.c+
+       '" stroke-width="'+g.m.w+'" stroke-linecap="round" '+dash+'></path>';
+    if(g.m!==FLY){
+      const tdx=B.x-cx, tdy=B.y-cy, tl=Math.hypot(tdx,tdy)||1;
+      const ax=B.x-tdx/tl*12, ay=B.y-tdy/tl*12;
+      const ang=Math.atan2(tdy,tdx)*180/Math.PI;
+      s+='<g transform="translate('+ax+','+ay+') rotate('+ang+')"><path d="M0,0 L-10,4.2 L-10,-4.2 Z" fill="'+g.m.c+'"></path></g>';
+    }
+    s+='<circle cx="'+bx+'" cy="'+by+'" r="10" fill="#fdfaf2" stroke="'+g.m.c+'" stroke-width="2"></circle>';
+    s+='<text x="'+bx+'" y="'+(by+3.5)+'" text-anchor="middle" font-size="9.5" font-weight="700" fill="'+g.m.c+'">'+g.d+'</text>';
+  });
+
+  /* 城市节点（点击打开 Google 地图） */
+  Object.keys(nodes).forEach(k=>{
+    const n=nodes[k];
+    s+='<g onclick="openGmaps(gmapsSearch(\''+n.q+'\'))" style="cursor:pointer">';
+    if(k==="SHA"){
+      s+='<circle cx="'+n.x+'" cy="'+n.y+'" r="7" fill="'+INK+'" stroke="#f7f2e7" stroke-width="2"></circle>';
+    }else if(n.stay){
+      s+='<circle cx="'+n.x+'" cy="'+n.y+'" r="8" fill="#fff" stroke="'+STAY+'" stroke-width="2.6"></circle>';
+      s+='<circle cx="'+n.x+'" cy="'+n.y+'" r="3" fill="'+STAY+'"></circle>';
+    }else{
+      s+='<circle cx="'+n.x+'" cy="'+n.y+'" r="6.5" fill="#fff" stroke="'+INK+'" stroke-width="2.2"></circle>';
+    }
+    let tx=n.x, ty=n.y-14, anch="middle";
+    if(n.la==="left"){ tx=n.x-14; ty=n.y+4; anch="end"; }
+    if(n.la==="right"){ tx=n.x+14; ty=n.y+4; anch="start"; }
+    s+='<text x="'+tx+'" y="'+ty+'" text-anchor="'+anch+'" font-size="13" font-weight="700" fill="'+INK+'" '+HALO+'>'+n.label+'</text>';
+    if(n.stay){
+      s+='<text x="'+n.x+'" y="'+(n.y+27)+'" text-anchor="middle" font-size="10" font-weight="700" fill="#c26a1f" '+HALO+'>🏨 '+n.stay+'</text>';
+    }
+    s+='</g>';
+  });
+
+  return {svg:s, keys:[
+    [FLY.c,FLY.name],[TRAIN.c,TRAIN.name],[CAR.c,CAR.name],[BUS.c,BUS.name],[STAY,"住宿城市（标注晚数）"]
+  ]};
+}
+
+/* ================= 渲染：BOOKINGS ================= */
+function renderFlights(){
+  const wrap=document.getElementById('bkFlights');
+  let h='<div class="card-head"><h2>✈️ 已确认 · 国际机票 <span class="badge">往返已出票</span></h2></div><div class="card-body" style="padding:4px 0 0">';
+  flights.forEach(f=>{
+    h+=`<div class="bk"><div class="icon ${f.cls}">${f.icon}</div><div class="info">
+      <div class="t2" style="color:var(--ink-faint);font-size:.7rem">${f.tag}</div>
+      <div class="t1">${f.t1}</div>
+      <div class="t2">${f.t2.join('<br>')}</div>
+      <div class="chiprow">${f.chips.map(c=>`<span class="mchip">${c}</span>`).join('')}</div>
+      <div class="caution">${f.caution}</div></div></div>`;
+  });
+  h+='</div>'; wrap.innerHTML=h;
+}
+function renderCars(){
+  const wrap=document.getElementById('bkCars');
+  let h='<div class="card-head"><h2>🚗 已确认 · 两段租车 <span class="badge">自驾</span></h2></div><div class="card-body" style="padding:4px 0 0">';
+  cars.forEach(c=>{
+    h+=`<div class="bk"><div class="icon ${c.cls}">${c.icon}</div><div class="info">
+      <div class="t2" style="color:var(--ink-faint);font-size:.7rem">${c.tag}</div>
+      <div class="t1">${c.t1}</div>
+      <div class="t2">${c.t2.join('<br>')}</div>
+      <div class="chiprow">${c.chips.map(x=>`<span class="mchip">${x}</span>`).join('')}</div>
+      <div class="caution">${c.caution}</div></div></div>`;
+  });
+  h+='</div>'; wrap.innerHTML=h;
+}
+function renderTrains(){
+  const wrap=document.getElementById('bkTrains');
+  let h='<div class="card-head"><h2>🚄 已确认 · 火车票 <span class="badge">已出票</span></h2></div><div class="card-body" style="padding:4px 0 0">';
+  trains.forEach(t=>{
+    h+=`<div class="bk"><div class="icon ${t.cls}">${t.icon}</div><div class="info">
+      <div class="t2" style="color:var(--ink-faint);font-size:.7rem">${t.tag}</div>
+      <div class="t1">${t.t1}</div>
+      <div class="t2">${t.t2.join('<br>')}</div>
+      <div class="chiprow">${t.chips.map(c=>`<span class="mchip">${c}</span>`).join('')}</div>
+      <div class="caution">${t.caution}</div></div></div>`;
+  });
+  h+='</div>'; wrap.innerHTML=h;
+}
+function renderHotels(){
+  const wrap=document.getElementById('bkHotels');
+  let h='<div class="card-head"><h2>🏨 已确认 · 住宿 <span class="badge">7 晚已订</span></h2></div><div class="card-body" style="padding:4px 0 0">';
+  hotels.forEach(ho=>{
+    h+=`<div class="bk"><div class="icon ${ho.cls}">${ho.icon}</div><div class="info">
+      <div class="t1">${ho.name} <span style="font-weight:500;font-size:.76rem;color:var(--ink-faint)">${ho.date}</span></div>
+      <div class="t2">${ho.tag}<br><span class="lbl">地址：</span>${ho.addr}</div>
+      <div class="t2"><span class="lbl">电话：</span>${ho.phone}</div>
+      <div class="t2" style="color:var(--ink-soft)">${ho.note}</div></div></div>`;
+  });
+  h+='</div>'; wrap.innerHTML=h;
+}
+function renderTickets(){
+  const wrap=document.getElementById('bkTickets');
+  let h='<div class="card"><div class="card-head"><h2>🎟️ 门票 / 预订点 <span class="badge">附购票链接</span></h2></div><div class="card-body" style="padding:4px 0 0">';
+  tickets.forEach(tk=>{
+    h+=`<div class="bk"><div class="icon b-ico-ticket">${tk.icon}</div><div class="info">
+      <div class="t1">${tk.name} <span style="font-weight:500;font-size:.76rem;color:var(--ink-faint)">· ${tk.city} · ${tk.price}</span></div>
+      <div class="t2">${tk.tip}</div>
+      <div class="chiprow">${tk.link?`<a class="mchip linky" href="${tk.link}" target="_blank" rel="noopener">🔗 购票链接</a>`:''}</div>
+      </div></div>`;
+  });
+  h+='</div></div>'; wrap.innerHTML=h;
+}
+
+/* ================= 渲染：DAY 行程 ================= */
+function dayRouteSvg(day){
+  /* 当日路线小地图：把各点串成一条彩色步骤线 */
+  const n=day.stops.length;
+  const w=860, h=74;
+  let s='<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="当日路线">';
+  s+='<rect x="0" y="0" width="'+w+'" height="'+h+'" rx="10" fill="transparent"></rect>';
+  const c=DAYCOLORS[+day.num.replace(/\D/g,'') % DAYCOLORS.length];
+  // line
+  const x0=30, x1=w-30, y=38;
+  s+=`<path d="M${x0},${y} L ${x1},${y}" stroke="${c}" stroke-width="4" stroke-dasharray="8 7" opacity="0.35"></path>`;
+  day.stops.forEach((st,i)=>{
+    const x = x0 + (x1-x0)*(n===1?0.5:i/(n-1||1));
+    s+=`<circle cx="${x}" cy="${y}" r="12" fill="#fff" stroke="${c}" stroke-width="2.4"></circle>`;
+    s+=`<text x="${x}" y="${y+4.5}" text-anchor="middle" font-size="11" font-weight="700" fill="${c}">${i+1}</text>`;
+    const label = (st.st||'').slice(0,9);
+    s+=`<text x="${x}" y="${y+26}" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">${label}</text>`;
+  });
+  s+='</svg>';
+  return s;
+}
+function renderDays(){
+  const wrap=document.getElementById('days');
+  let h='';
+  DAYS.forEach((day,idx)=>{
+    const c=DAYCOLORS[idx%DAYCOLORS.length];
+    const stopsHtml = day.stops.map(st=>{
+      const mk = st.mk?`<span class="mk ${st.mk}">${st.mk==='book'?'需提前订票':st.mk==='warn'?'注意':st.mk==='ok'?'确定':st.mk==='free'?'免费':''}</span>`:'';
+      return `<div class="stop"><div class="tl"><div class="tt">${st.t}</div>${st.tz?`<div class="tz">${st.tz}</div>`:''}</div>
+        <div class="bd ${st.big?'big':''}"><div class="st">${st.st}</div>
+        <div class="sd">${st.d}</div>${mk}
+        <span class="maps-a" onclick="openGmaps(gmapsSearch('${(st.maps||'').replace(/'/g,"")}'))">📍 地图导航</span></div></div>`;
+    }).join('');
+    const route = dayRouteSvg(day);
+    // nav waypoints
+    const modes={'driving':'driving','transit':'transit','train':'transit','flights':'transit','walking':'walking'};
+    const m = modes[day.mode]||'driving';
+    const stops = day.stops.map(s=>s.maps).filter(Boolean);
+    const dirUrl = stops.length>1 ? gmapsDir(stops[0],stops[stops.length-1],stops.slice(1,-1),m)
+                  : (stops.length===1 ? gmapsSearch(stops[0]) : '');
+    const overnight = `<div class="chiprow" style="margin-top:8px"><span class="mchip">🏨 宿 ${day.over}</span></div>`;
+    h+=`<div class="day" id="day${idx}">
+      <div class="day-hd" onclick="toggleDay(${idx})">
+        <div class="day-num"><b>${day.num}</b><span>${day.date}</span><span class="ddow">${day.dow}</span></div>
+        <div class="day-mid"><div class="dtitle">${day.icon} ${day.title}</div><div class="dsub">${day.sub}</div></div>
+        <div class="day-arrow">▾</div>
+      </div>
+      <div class="day-open">
+        <div class="route">${route}</div>
+        ${dirUrl?`<div class="nav-top">
+          <button class="btn primary" onclick="openGmaps('${dirUrl}')">🗺️ 一键全天多点导航</button>
+        </div>`:''}
+        ${stopsHtml}
+        ${overnight}
+      </div>
+    </div>`;
+  });
+  wrap.innerHTML=h;
+}
+function toggleDay(idx){document.getElementById('day'+idx).classList.toggle('open');}
+
+/* ================= 渲染：TODO & TIPS ================= */
+function renderTodo(){
+  const ul=document.getElementById('todoList');
+  document.getElementById('todoCount').textContent = TODOS.length+" 项 · 办完一项告诉我，我来改页面";
+  ul.innerHTML=TODOS.map((t,i)=>`<li class="${t.urgent?'urgent':''}"><span class="n">${i+1}</span><span class="t">${t.txt}${t.tag?`<span class="tag">· ${t.tag}</span>`:''}${t.desc?`<span class="desc">${t.desc}</span>`:''}</span></li>`).join('');
+}
+function renderTips(){
+  const wrap=document.getElementById('tips');
+  wrap.innerHTML=TIPS.map(t=>`<div class="tip"><div class="icon">${t.icon}</div><div class="tt">${t.tt}</div><div class="td">${t.d}</div></div>`).join('');
+}
+
+/* ================= 昼夜主题 ================= */
+function applyTheme(){
+  const h=new Date().getHours();
+  const night = h<6||h>=19;
+  document.documentElement.setAttribute('data-theme', night?'night':'');
+  document.getElementById('themeBtn').textContent = night?'☀️':'🌙';
+}
+document.getElementById('themeBtn').addEventListener('click',()=>{
+  const cur=document.documentElement.getAttribute('data-theme');
+  document.documentElement.setAttribute('data-theme', cur==='night'?'':'night');
+  document.getElementById('themeBtn').textContent = cur==='night'?'🌙':'☀️';
+});
+
+/* ================= 初始化 ================= */
+function scrollSpy(){
+  const secs=['nav-overview','nav-booking','nav-days','nav-todo','nav-tips'];
+  const links=document.querySelectorAll('.bnav a');
+  const pos = window.scrollY + window.innerHeight*0.4;
+  let cur='nav-overview';
+  secs.forEach(id=>{const el=document.getElementById(id); if(el && el.offsetTop <= pos) cur=id;});
+  if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 4) cur='nav-tips';
+  links.forEach(a=>a.classList.toggle('active', a.getAttribute('data-sec')===cur));
+}
+function init(){
+  const m=buildMap();
+  document.getElementById('ovMap').innerHTML=m.svg;
+  document.getElementById('mapLegend').innerHTML=m.keys.map(k=>`<span><i style="background:${k[0]}"></i>${k[1]}</span>`).join('');
+  renderFlights();renderCars();renderTrains();renderHotels();renderTickets();
+  renderDays();renderTodo();renderTips();
+  applyTheme();
+  tick(); setInterval(tick,1000);
+  window.addEventListener('scroll', scrollSpy, {passive:true});
+  window.addEventListener('load', scrollSpy);
+  scrollSpy();
+}
+init();
+</script>
+</body>
+</html>
