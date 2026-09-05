@@ -157,9 +157,21 @@
   .bk .t2{font-size:.78rem;color:var(--ink-soft);margin-top:3px;line-height:1.55}
   .bk .t2 .lbl{color:var(--ink-faint)}
   .bk .chiprow{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+  .bk .chiprow.oneline{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .bk .chiprow.oneline::-webkit-scrollbar{display:none}
   .bk .mchip{font-size:.7rem;background:var(--chip);color:var(--ink);padding:3px 9px;border-radius:25px;border:1px solid var(--line)}
+  .bk .mchip.mchip-line{padding:4px 12px;font-size:.74rem}
   .bk .mchip.linky{color:var(--brand-2);border-color:var(--brand-2)}
-  .bk .caution{font-size:.73rem;color:var(--warn);margin-top:8px;line-height:1.5;display:flex;gap:6px}
+  .bk .mchip.source-tag{background:rgba(14,106,168,.1);color:#0e6aa8;border-color:rgba(14,106,168,.3)}
+  .btn-pill{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:20px;font-size:.74rem;margin-top:8px;text-decoration:none;font-weight:600;border:1px solid var(--brand);color:var(--brand);background:rgba(255,255,255,.4);transition:.15s}
+  .btn-pill:hover{background:var(--brand);color:#fff}
+  .btn-pill.off{color:var(--ink-faint);border-color:var(--line);background:transparent;cursor:default}
+  .btn-pill.off:hover{background:transparent;color:var(--ink-faint)}
+  .link-inline{font-size:.7rem;color:var(--brand-2);font-weight:500;margin-left:6px;text-decoration:none;border-bottom:1px dashed var(--brand-2)}
+  .link-inline:hover{color:var(--brand)}
+  .bk .caution{font-size:.73rem;color:var(--warn);margin-top:8px;line-height:1.5;display:flex;gap:6px;flex-wrap:wrap}
+  .bk .caution.oneline{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .bk .caution.oneline::-webkit-scrollbar{display:none}
   .ph-link{font-weight:600}
 
   /* day itinerary */
@@ -214,11 +226,24 @@
   /* todos */
   .todo li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line);font-size:.88rem}
   .todo li:last-child{border-bottom:none}
+  .todo li .state{flex:none;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;line-height:1;margin-top:1px}
+  .todo li .state.done{color:#1f9d63}
+  .todo li .state.pending{color:var(--line);font-weight:400}
+  .todo li.done .n{background:#e8f5ec;color:#1f9d63;border-color:#bde0c7}
+  .todo li.done .t{color:var(--ink-faint);text-decoration:line-through;text-decoration-color:#bde0c7;text-decoration-thickness:1.5px}
+  .todo li.done .t .tag{opacity:.6}
+  html[data-theme="night"] .todo li .state.done{color:#5fd39a}
+  html[data-theme="night"] .todo li.done .n{background:#1d3a25;color:#5fd39a;border-color:#2e5a3b}
+  html[data-theme="night"] .todo li.done .t{color:var(--ink-faint);text-decoration-color:#2e5a3b}
   .todo li .n{flex:none;width:22px;height:22px;border-radius:6px;background:var(--chip);border:1px solid var(--line);
     display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--ink-faint);margin-top:1px}
   .todo li.urgent .n{background:#fff2e6;color:var(--accent);border-color:#f0dcc2}
   .todo li .t{flex:1}
-  .todo li .t .tag{font-size:.66rem;color:var(--accent-2);font-weight:700;margin-left:6px}
+  .todo li .t .tag{font-size:.66rem;font-weight:800;margin-left:6px}
+  .todo li .t .tag.tag-do{color:#1f9d63}
+  .todo li .t .tag.tag-must{color:#e2483d}
+  html[data-theme="night"] .todo li .t .tag.tag-do{color:#5fd39a}
+  html[data-theme="night"] .todo li .t .tag.tag-must{color:#ff7a72}
   .todo li .desc{display:block;font-size:.74rem;color:var(--ink-soft);margin-top:2px}
 
   /* tips */
@@ -386,7 +411,7 @@ const flights = [
     t1:"9/22 上海浦东 PVG T2 → 北京首都 PEK T3 → 威尼斯 VCE",
     t2:["航班一：国航 <b>CA8332</b> · 空客321 · 09:30→11:40 点心餐，中转北京 2h35m 行李直达",
         "航班二：国航 <b>CA973</b> · 空客330 · 14:15→19:15（当地时间）· 有餐食 / 托运1×23kg / 手提1×5kg"],
-    chips:["09:30 上海起飞","19:15 威尼斯落地（当地）","经济舱(T)"],
+    chipsLine:"09:30 上海起飞 · 19:15 威尼斯落地（当地） · 经济舱(T)",
     caution:"⚠️ 此票显示「已变更」——请按变更后信息为准；出发前再核对一遍航站楼与行李额。"
   },
   {
@@ -395,8 +420,9 @@ const flights = [
     t2:["航班一：土耳其航空 <b>TK1726</b> · 中型机321 · 10/7 15:15→19:15（当地）· 有餐食",
         "航班二：土耳其航空 <b>TK280</b> · 大787 · 10/8 15:10→10/9 06:25 · 有餐食",
         "中转 19h55m · 跨天中转 · 行李直达 · 无需过境签"],
-    chips:["¥4289 / 人","10/7 15:15 柏林起飞","10/9 06:25 上海落地（当地）"],
-    caution:"⚠️ 19h55m 中转：土航 Stopover 免费酒店通常要求 ≥20 小时，你差 5 分钟，多半不符；但 <b>TourIstanbul 免费半日游</b>（6-24h）符合，须提前在土航官网登记。"
+    chipsLine:"¥4289 / 人 · 10/7 15:15 柏林起飞 · 10/9 06:25 上海落地（当地）",
+    caution:"⚠️ 19h55m 中转：土航 Stopover 免费酒店通常要求 ≥20 小时，你差 5 分钟，多半不符；但 <b>TourIstanbul 免费半日游</b>（6-24h）符合，须提前在土航官网登记。",
+    cautionOneline:true
   }
 ];
 
@@ -424,12 +450,43 @@ const cars = [
 /* ================= 火车（已出票） ================= */
 const trains = [
   {
+    icon:"🚄", cls:"b-ico-train", tag:"高速 · 威尼斯 → 佛罗伦萨（9/23 已出票）",
+    t1:"16:05 Venezia S.L. → 18:20 Firenze S.M.",
+    t2:["<b>Italo 8923</b> · 16:05 威尼斯 Santa Lucia 出发 → 18:20 佛罗伦萨 S.M. Novella 抵达",
+        "Ambiente Smart · 车厢 4 · 座位 61 (DENG) / 62 (LIANG)",
+        "票号：<b>SEP7MM</b> · 实付 35.54€（两人，已享折扣）"],
+    chips:["Italo · Smart","2 人同行","总耗时 2h15m","无需换乘"],
+    pdf:"",
+    caution:"已出票；建议提前 30 分钟到威尼斯 Santa Lucia 车站，候车并核对站台。"
+  },
+  {
+    icon:"🚄", cls:"b-ico-train", tag:"城际 · 佛罗伦萨 → 维罗纳（9/27 已出票）",
+    t1:"10:36 Firenze S.M. Novella → 12:08 Verona Porta Nuova",
+    t2:["<b>Frecciarossa 8506</b> · 10:36 佛罗伦萨 SMN 出发 → 12:08 维罗纳 Porta Nuova 抵达",
+        "2ª 标准座 · 车厢 10 · 座位 7D / 8D",
+        "PNR：<b>KY4DR5</b> · 两人合计 22.30€"],
+    chips:["Frecciarossa · 2ª Standard","2 人同行","总耗时 1h32m","无需换乘"],
+    pdf:"",
+    caution:"已出票；开车前 1 分钟关闭车门，提前到站台候车。"
+  },
+  {
+    icon:"🚄", cls:"b-ico-train", tag:"区间 · 维罗纳 → 博尔扎诺（9/28 已出票）",
+    t1:"08:49 Verona Porta Nuova → 10:43 Bolzano/Bozen",
+    t2:["<b>Regionale 16638</b> · 08:49 维罗纳 Porta Nuova 出发 → 10:43 博尔扎诺 Bozen 抵达",
+        "2ª 级（Ordinary）· 2 人同行",
+        "取票码：<b>1862616625</b>（凭码在自助机/柜台取票）"],
+    chips:["Regionale · 2ª classe","2 人同行","总耗时 1h54m","无需换乘"],
+    pdf:"",
+    caution:"已出票，2 等座；乘车前用取票码在车站自助机/柜台打印车票。"
+  },
+  {
     icon:"🚄", cls:"b-ico-train", tag:"城际 · 博尔扎诺 → 萨尔茨堡（10/1 已出票）",
     t1:"12:34 Bolzano/Bozen → 17:02 Salzburg Hbf",
     t2:["第一程：<b>RJ 86</b> · 12:34 博尔扎诺 → 14:32 因斯布鲁克 Hbf (Pl. 6) · 车厢 265 · 座位 102,101 · 1h58m",
         "因斯布鲁克站内换乘 24 分钟",
         "第二程：<b>RJX 13479</b> · 14:56 因斯布鲁克 → 17:02 萨尔茨堡 Hbf (Pl. 4C-F) · 车厢 34 · 座位 64,66 · 2h6m"],
     chips:["2. Klasse · Super Offerta","2 人同行","总耗时 4h28m"],
+    pdf:"",
     caution:"已出票，座位固定可直接对号入座；乘车前核对站台与车厢。"
   },
   {
@@ -439,6 +496,7 @@ const trains = [
         "慕尼黑站内换乘 39 分钟 · ICE Sprinter",
         "第二程：<b>ICE 1508</b> · 12:21 慕尼黑 → 16:24 柏林 Hbf (Pl. 5) · 车厢 31 · 座位 61,63 · 4h3m"],
     chips:["2. Klasse · Super Sparpreis","2 人同行","总耗时 6h24m"],
+    pdf:"",
     caution:"⚠️ 跨国段过境注意证件；慕尼黑换乘 39 分钟，留意站台指引。"
   }
 ];
@@ -447,42 +505,49 @@ const trains = [
 const hotels = [
   {
     date:"9/22 – 9/23", icon:"🏨", cls:"b-ico-hotel", name:"a&o Venezia Mestre", tag:"威尼斯 · Mestre 火车站旁",
+    source:"携程",
     addr:"Via Ca' Marcello 19, Venezia, Veneto 30172, Italy",
     phone:"+39 041 884 0990",
     note:"机场大巴 ≈30min / 12€；步行可达 Mestre 火车站，方便取行李、坐车上主岛。"
   },
   {
     date:"9/23 – 9/25", icon:"🏠", cls:"b-ico-hotel", name:"Airbnb · 佛罗伦萨", tag:"圣母玛丽亚火车站附近 (SMN)",
+    source:"Airbnb",
     addr:"Via degli Orti Oricellari 31, Firenze, Toscana 50123, Italy",
     phone:"见民宿订单",
     note:"紧邻新圣母玛利亚火车站，取车/还车都在旁边；第一天寄存行李方便。"
   },
   {
-    date:"9/25 – 9/27", icon:"🌾", cls:"b-ico-hotel", name:"Agriturismo La Casa Nuova", tag:"托斯卡纳乡间", 
+    date:"9/25 – 9/27", icon:"🌾", cls:"b-ico-hotel", name:"Agriturismo La Casa Nuova", tag:"托斯卡纳乡间",
+    source:"Booking.com",
     addr:"Strada Provinciale 71 loc Castelmuzio, 53020 Castelmuzio, Siena",
     phone:"见订单 (Booking)",
     note:"锡耶纳 / 皮恩扎中间，适合乡村慢游；自驾 1h 到锡耶纳。"
   },
   {
     date:"9/27 – 9/28", icon:"🏨", cls:"b-ico-hotel", name:"Casa Italia", tag:"维罗纳火车站边",
+    source:"Booking.com",
     addr:"Piazza Renato Simoni 14, Verona 37122, Italy",
     phone:"见订单 (Booking)",
     note:"楼下就是 Verona Porta Nuova 火车站，次日 08:49 去博尔扎诺超方便。"
   },
   {
     date:"9/28 – 10/1", icon:"🏠", cls:"b-ico-hotel", name:"Airbnb · Brixen 山上", tag:"Brixen（多洛米蒂）",
+    source:"Airbnb",
     addr:"Gebreitnerhof, Karnol 88, Brixen, Trentino-Alto Adige 39042",
     phone:"见 Airbnb 订单",
     note:"住在山上，俯瞰富内斯山谷；自驾去布拉耶斯/刀锋山都近。"
   },
   {
     date:"10/1 – 10/4", icon:"🏠", cls:"b-ico-hotel", name:"Airbnb · 萨尔茨堡", tag:"主火车站附近",
+    source:"Airbnb",
     addr:"Bergheimer Straße 45, Salzburg 5020, Austria",
     phone:"见 Airbnb 订单",
     note:"离主火近，方便坐 S3 / 840 去湖区；酒店 Guest Mobility Ticket 可免费坐萨尔茨堡公交。"
   },
   {
     date:"10/4 – 10/7", icon:"🏨", cls:"b-ico-hotel", name:"AMANO HOME Apartments", tag:"柏林 · 米特区",
+    source:"Booking.com",
     addr:"Torstrasse 52, 10119 Berlin, Germany",
     phone:"+49 30 21300310",
     note:"自助在线/App 入住，记得提前线上办理拿房间号（房间号不写在这）。地铁 Rosenthaler Platz 近。"
@@ -545,7 +610,7 @@ const DAYS = [
       {t:"14:00",st:"学院桥 Ponte dell'Accademia",d:"15min·1.1km｜最佳大运河观景点之一",maps:"Ponte dell'Accademia"},
       {t:"14:30",st:"宪法桥 Ponte della Costituzione",d:"17min·1.2km｜现代感玻璃桥，视野开阔",maps:"Ponte della Costituzione"},
       {t:"15:00",big:true,st:"🚉 返回 S. Lucia 火车站",d:"17min·1.2km 回到起点；<b>留1小时缓冲</b>取行李、找站台",maps:"Venezia Santa Lucia 火车站"},
-      {t:"16:05",tz:"UTC+2",big:true,st:"🚄 威尼斯 → 佛罗伦萨（火车）",d:"提前买票、提前到站台；区间车要抢座位,临近车站请预留",mk:"book",maps:"Venezia Santa Lucia 火车站"},
+      {t:"16:05",tz:"UTC+2",big:true,st:"🚄 威尼斯 → 佛罗伦萨（Italo 8923）",d:"<b>16:05 出发 → 18:20 抵达</b>· 已出票（车厢4·座位61/62）；提前30分钟到站候车，核对站台",mk:"ok",maps:"Venezia Santa Lucia 火车站"},
       {t:"傍晚",st:"🏠 入住佛罗伦萨 Airbnb",d:"Via degli Orti Oricellari 31, 50123 Firenze（SMN 火车站附近）",mk:"ok",maps:"Via degli Orti Oricellari 31, Firenze"}
     ],
     over:"佛罗伦萨"
@@ -590,7 +655,7 @@ const DAYS = [
     sub:"上午还车 → 火车去维罗纳，下午山顶全景",
     stops:[
       {t:"上午",st:"🚗 开车 1h 回佛罗伦萨还车",d:"Budget 还车位于 Via Maso Finiguerra 15",mk:"ok",maps:"Budget Firenze return Via Maso Finiguerra 15"},
-      {t:"中午",st:"🚄 火车前往维罗纳",d:"提前买票",mk:"book",maps:"Firenze Santa Maria Novella"},
+      {t:"10:36",st:"🚄 Frecciarossa 8506 前往维罗纳",d:"Firenze SMN 出发 → 12:08 到 Verona Porta Nuova，已出票(PNR KY4DR5)，对号入座",mk:"ok",maps:"Firenze Santa Maria Novella"},
       {t:"午后",big:true,st:"🏠 入住 Casa Italia",d:"Piazza Renato Simoni 14, Verona · 楼下就是 Porta Nuova 火车站",mk:"ok",maps:"Casa Italia Piazza Renato Simoni 14 Verona"},
       {t:"下午",st:"🌄 Castel San Pietro 山顶",d:"缆车 3€ 往返（单程2€），维罗纳最佳观景台，上面有酒吧",maps:"Castel San Pietro Verona"},
       {t:"傍晚",st:"🏛️ 朱莉亚故居(可选)",d:"基础5€/全票12€,需官网预约；人多可不去",mk:"book",maps:"Casa di Giulietta Verona"},
@@ -602,7 +667,7 @@ const DAYS = [
     date:"9/28", dow:"周一", num:"D7", title:"维罗纳 → 博尔扎诺 → Brixen 富内斯山谷", icon:"🏔️", mode:"driving",
     sub:"08:49 火车 → 博尔扎诺取车 → 上富内斯山谷看日照金山",
     stops:[
-      {t:"08:49",tz:"UTC+2",big:true,st:"🚄 维罗纳 Verona Porta Nuova → 博尔扎诺",d:"区间车<b>无固定座位</b>，需抢座；提前到+提行李",mk:"book",maps:"Verona Porta Nuova 火车站"},
+      {t:"08:49",tz:"UTC+2",big:true,st:"🚄 Regionale 16638 维罗纳 → 博尔扎诺",d:"08:49 Verona Porta Nuova → 10:43 Bolzano Bozen，已出票；凭取票码 1862616625 取票，2 等座",mk:"ok",maps:"Verona Porta Nuova 火车站"},
       {t:"~10:00",st:"🚗 博尔扎诺取车 · Budget",d:"Via Luigi Galvani, 1F, 39100 Bolzano · 电话 0471 212 560 · 打车/公交约20分钟",mk:"book",maps:"Budget Via Luigi Galvani 1F Bolzano"},
       {t:"中午",st:"🛞 自驾 40km ≈1h 到 Brixen",d:"上山入住 Gebreitnerhof",mk:"ok",maps:"Gebreitnerhof Brixen"},
       {t:"下午",big:true,st:"🏞️ 富内斯山谷 Val di Funes",d:"车停谷口 <b>Parkplatz Bergerplatz</b>(4€可刷卡)再步行；徒步 Malga Zannes(10€/次,10km爬升500m,小白友好)",maps:"Parkplatz Bergerplatz Val di Funes"},
@@ -750,20 +815,17 @@ const TIPS = [
 
 /* ================= 待办 ================= */
 const TODOS = [
-  {txt:"订火车票 · 威尼斯→佛罗伦萨 (9/23)", tag:"DO", desc:"16:05 区间车需抢座,尽量提前"}, 
-  {txt:"订火车票 · 佛罗伦萨→维罗纳 (9/27)", tag:"DO", desc:"提前买更划算"},
-  {txt:"订火车票 · 维罗纳→博尔扎诺 (9/28)", tag:"DO", desc:"08:49 区间车,无固定座位"},
-  {txt:"休斯高原 Alpe di Siusi 线上预约", tag:"MUST", desc:"2026/6/15 起强制约；9/30 上山，预约窗口 9/24–9/29，最早提前6天", urgent:true},
-  {txt:"柏林地下世界预约讲解员", tag:"DO", desc:"berliner-unterwelten.de 提前订"},
-  {txt:"Babylon《大都会》订座", tag:"DO", desc:"10/6 晚间场,百年影院"},
-  {txt:"皮蒂宫/波波里 + 博物馆岛通票", tag:"DO", desc:"旺季建议线上,博物馆岛通票更划算"},
-  {txt:"朱莉亚故居官网预约", tag:"DO", desc:"要么网上订,要么现场可能排队"},
-  {txt:"伊斯坦布尔中转 · 土航 Stopover / TourIstanbul 登记", tag:"MUST", desc:"停19h55m,Stopover 需≥20h 多半不符；TourIstanbul 半日游(6-24h)符合,提前官网登记", urgent:true},
-  {txt:"办国际驾照（海牙认证）", tag:"MUST", desc:"预估 ¥600，出发前 2 周办好", urgent:true},
-  {txt:"买电话卡（Vodafone / Orange）", tag:"DO", desc:"提前买好以免落地没网"},
-  {txt:"换欧元零钱", tag:"DO", desc:"国王湖一日票只收现金；已有 700€ @7.81"},
-  {txt:"带转换插头 / 行李绑带锁 / 防盗套装", tag:"DO", desc:"欧标插头、手机挂绳、防盗刷卡套、防盗腰包"},
-  {txt:"下载离线地图 + 多洛米蒂山路包", tag:"DO", desc:"Google Maps 离线,避免没信号"}
+  {txt:"休斯高原 Alpe di Siusi 线上预约", tag:"MUST", status:"pending", desc:"2026/6/15 起强制约；9/30 上山，预约窗口 9/24–9/29，最早提前6天", urgent:true},
+  {txt:"柏林地下世界预约讲解员", tag:"DO", status:"pending", desc:"berliner-unterwelten.de 提前订"},
+  {txt:"Babylon《大都会》订座", tag:"DO", status:"pending", desc:"10/6 晚间场,百年影院"},
+  {txt:"皮蒂宫/波波里 + 博物馆岛通票", tag:"DO", status:"pending", desc:"旺季建议线上,博物馆岛通票更划算"},
+  {txt:"朱莉亚故居官网预约", tag:"DO", status:"pending", desc:"要么网上订,要么现场可能排队"},
+  {txt:"伊斯坦布尔中转 · 土航 Stopover / TourIstanbul 登记", tag:"MUST", status:"pending", desc:"停19h55m,Stopover 需≥20h 多半不符；TourIstanbul 半日游(6-24h)符合,提前官网登记", urgent:true},
+  {txt:"办国际驾照（海牙认证）", tag:"MUST", status:"done", desc:"预估 ¥600，出发前 2 周办好", urgent:true},
+  {txt:"买电话卡（Vodafone / Orange）", tag:"DO", status:"done", desc:"提前买好以免落地没网"},
+  {txt:"换欧元零钱", tag:"DO", status:"done", desc:"国王湖一日票只收现金；已有 700€ @7.81"},
+  {txt:"带转换插头 / 行李绑带锁 / 防盗套装", tag:"DO", status:"pending", desc:"欧标插头、手机挂绳、防盗刷卡套、防盗腰包"},
+  {txt:"下载当地地图软件（出行前必装）", tag:"DO", status:"pending", desc:"<b>Google Maps</b>(必装,提前下载意大利/奥地利/德国离线地图) · <b>Maps.me</b>(多洛米蒂徒步/步行神器,离线很全) · <b>HERE WeGo</b>(欧洲公交查询最准) · <b>Waze</b>(开车导航,提前在欧服装好)"}
 ];
 
 /* ================= 渲染：焦点事件/倒计时 ================= */
@@ -931,12 +993,14 @@ function renderFlights(){
   const wrap=document.getElementById('bkFlights');
   let h='<div class="card-head"><h2>✈️ 已确认 · 国际机票 <span class="badge">往返已出票</span></h2></div><div class="card-body" style="padding:4px 0 0">';
   flights.forEach(f=>{
+    // 单行 chip：优先用 chipsLine；否则把 chips 数组合并成一行
+    const chipTxt = f.chipsLine || (f.chips && f.chips.length ? f.chips.join(' · ') : '');
     h+=`<div class="bk"><div class="icon ${f.cls}">${f.icon}</div><div class="info">
       <div class="t2" style="color:var(--ink-faint);font-size:.7rem">${f.tag}</div>
       <div class="t1">${f.t1}</div>
       <div class="t2">${f.t2.join('<br>')}</div>
-      <div class="chiprow">${f.chips.map(c=>`<span class="mchip">${c}</span>`).join('')}</div>
-      <div class="caution">${f.caution}</div></div></div>`;
+      ${chipTxt ? `<div class="chiprow oneline"><span class="mchip mchip-line">${chipTxt}</span></div>` : ''}
+      <div class="caution${f.cautionOneline?' oneline':''}">${f.caution}</div></div></div>`;
   });
   h+='</div>'; wrap.innerHTML=h;
 }
@@ -955,13 +1019,17 @@ function renderCars(){
 }
 function renderTrains(){
   const wrap=document.getElementById('bkTrains');
-  let h='<div class="card-head"><h2>🚄 已确认 · 火车票 <span class="badge">已出票</span></h2></div><div class="card-body" style="padding:4px 0 0">';
+  let h='<div class="card-head"><h2>🚄 已确认 · 火车票 <span class="badge">已出票</span> · <a class="link-inline" href="#nav-tips" data-tip="howto-ticket">怎么上传车票 PDF？</a></h2></div><div class="card-body" style="padding:4px 0 0">';
   trains.forEach(t=>{
+    const ticketBtn = t.pdf
+      ? `<a class="btn-pill ticket-btn" href="${t.pdf}" target="_blank" rel="noopener">🎫 查看车票</a>`
+      : `<span class="btn-pill ticket-btn off" title="把 PDF/图片放到 tickets/ 目录后告诉我文件名">📎 待上传 PDF</span>`;
     h+=`<div class="bk"><div class="icon ${t.cls}">${t.icon}</div><div class="info">
       <div class="t2" style="color:var(--ink-faint);font-size:.7rem">${t.tag}</div>
       <div class="t1">${t.t1}</div>
       <div class="t2">${t.t2.join('<br>')}</div>
       <div class="chiprow">${t.chips.map(c=>`<span class="mchip">${c}</span>`).join('')}</div>
+      ${ticketBtn}
       <div class="caution">${t.caution}</div></div></div>`;
   });
   h+='</div>'; wrap.innerHTML=h;
@@ -970,10 +1038,12 @@ function renderHotels(){
   const wrap=document.getElementById('bkHotels');
   let h='<div class="card-head"><h2>🏨 已确认 · 住宿 <span class="badge">7 晚已订</span></h2></div><div class="card-body" style="padding:4px 0 0">';
   hotels.forEach(ho=>{
+    const sourceTag = ho.source ? `<span class="mchip source-tag" title="预订来源">🛒 ${ho.source}</span>` : '';
     h+=`<div class="bk"><div class="icon ${ho.cls}">${ho.icon}</div><div class="info">
       <div class="t1">${ho.name} <span style="font-weight:500;font-size:.76rem;color:var(--ink-faint)">${ho.date}</span></div>
       <div class="t2">${ho.tag}<br><span class="lbl">地址：</span>${ho.addr}</div>
       <div class="t2"><span class="lbl">电话：</span>${ho.phone}</div>
+      ${sourceTag ? `<div class="chiprow" style="margin-top:6px">${sourceTag}</div>` : ''}
       <div class="t2" style="color:var(--ink-soft)">${ho.note}</div></div></div>`;
   });
   h+='</div>'; wrap.innerHTML=h;
@@ -1055,8 +1125,18 @@ function toggleDay(idx){document.getElementById('day'+idx).classList.toggle('ope
 /* ================= 渲染：TODO & TIPS ================= */
 function renderTodo(){
   const ul=document.getElementById('todoList');
-  document.getElementById('todoCount').textContent = TODOS.length+" 项 · 办完一项告诉我，我来改页面";
-  ul.innerHTML=TODOS.map((t,i)=>`<li class="${t.urgent?'urgent':''}"><span class="n">${i+1}</span><span class="t">${t.txt}${t.tag?`<span class="tag">· ${t.tag}</span>`:''}${t.desc?`<span class="desc">${t.desc}</span>`:''}</span></li>`).join('');
+  const doneCnt = TODOS.filter(t=>t.status==='done').length;
+  document.getElementById('todoCount').textContent = `${TODOS.length} 项 · 已完成 ${doneCnt} / 待办 ${TODOS.length-doneCnt} · 办完一项告诉我，我来改页面`;
+  const tagMap={MUST:'❗', DO:'✓'};
+  ul.innerHTML=TODOS.map((t,i)=>{
+    const tagCls = t.tag==='MUST'?'tag-must':(t.tag==='DO'?'tag-do':'');
+    const tag = t.tag ? `<span class="tag ${tagCls}">· ${tagMap[t.tag]||t.tag}</span>` : '';
+    const state = t.status==='done'
+      ? `<span class="state done" title="已完成">✓</span>`
+      : `<span class="state pending" title="待办">○</span>`;
+    const doneClass = t.status==='done' ? ' done' : '';
+    return `<li class="${t.urgent?'urgent':''}${doneClass}">${state}<span class="n">${i+1}</span><span class="t">${t.txt}${tag}${t.desc?`<span class="desc">${t.desc}</span>`:''}</span></li>`;
+  }).join('');
 }
 function renderTips(){
   const wrap=document.getElementById('tips');
