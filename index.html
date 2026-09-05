@@ -165,8 +165,6 @@
   .bk .mchip.source-tag{background:rgba(14,106,168,.1);color:#0e6aa8;border-color:rgba(14,106,168,.3)}
   .btn-pill{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:20px;font-size:.74rem;margin-top:8px;text-decoration:none;font-weight:600;border:1px solid var(--brand);color:var(--brand);background:rgba(255,255,255,.4);transition:.15s}
   .btn-pill:hover{background:var(--brand);color:#fff}
-  .btn-pill.off{color:var(--ink-faint);border-color:var(--line);background:transparent;cursor:default}
-  .btn-pill.off:hover{background:transparent;color:var(--ink-faint)}
   .link-inline{font-size:.7rem;color:var(--brand-2);font-weight:500;margin-left:6px;text-decoration:none;border-bottom:1px dashed var(--brand-2)}
   .link-inline:hover{color:var(--brand)}
   .bk .caution{font-size:.73rem;color:var(--warn);margin-top:8px;line-height:1.5;display:flex;gap:6px;flex-wrap:wrap}
@@ -1019,11 +1017,9 @@ function renderCars(){
 }
 function renderTrains(){
   const wrap=document.getElementById('bkTrains');
-  let h='<div class="card-head"><h2>🚄 已确认 · 火车票 <span class="badge">已出票</span> · <a class="link-inline" href="#nav-tips" data-tip="howto-ticket">怎么上传车票 PDF？</a></h2></div><div class="card-body" style="padding:4px 0 0">';
+  let h='<div class="card-head"><h2>🚄 已确认 · 火车票 <span class="badge">已出票</span></h2></div><div class="card-body" style="padding:4px 0 0">';
   trains.forEach(t=>{
-    const ticketBtn = t.pdf
-      ? `<a class="btn-pill ticket-btn" href="${t.pdf}" target="_blank" rel="noopener">🎫 查看车票</a>`
-      : `<span class="btn-pill ticket-btn off" title="把 PDF/图片放到 tickets/ 目录后告诉我文件名">📎 待上传 PDF</span>`;
+    const ticketBtn = t.pdf ? `<a class="btn-pill ticket-btn" href="${t.pdf}" target="_blank" rel="noopener">🎫 查看车票</a>` : '';
     h+=`<div class="bk"><div class="icon ${t.cls}">${t.icon}</div><div class="info">
       <div class="t2" style="color:var(--ink-faint);font-size:.7rem">${t.tag}</div>
       <div class="t1">${t.t1}</div>
